@@ -239,8 +239,12 @@
     document.querySelectorAll('.launch-demo').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         e.preventDefault();
+        e.stopImmediatePropagation();
+        if (btn.dataset.tracking) return;
+        btn.dataset.tracking = 'true';
         const url = btn.getAttribute('href') || btn.dataset.url;
         if (window.LC?.logDemoView) await window.LC.logDemoView(btn.dataset.demo);
+        btn.dataset.tracking = '';
         window.open(url, '_blank', 'noopener,noreferrer');
       });
     });
