@@ -317,6 +317,14 @@ body {
 }
 
 .form-submit:disabled {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.25);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-submit:disabled {
   background: rgba(255,255,255,0.1);
   border-color: transparent;
   color: rgba(255,255,255,0.3);
