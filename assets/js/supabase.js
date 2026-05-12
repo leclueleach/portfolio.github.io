@@ -70,7 +70,6 @@ async function logDemoView(demoName) {
     .from('demo_views')
     .insert([{
       demo_name:  demoName,
-      viewed_at:  new Date().toISOString(),
       ...getMeta(),
     }]);
 
@@ -94,7 +93,6 @@ async function logCvDownload() {
   const { error } = await client
     .from('cv_downloads')
     .insert([{
-      downloaded_at: new Date().toISOString(),
       ...getMeta(),
     }]);
 
@@ -128,7 +126,6 @@ async function submitContact({ name, email, message }) {
       name,
       email,
       message,
-      created_at: new Date().toISOString(),
     }]);
 
   if (error) {
