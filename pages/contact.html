@@ -44,7 +44,7 @@
     <!-- ══════════════════════════════════════════════════
          HERO
     ══════════════════════════════════════════════════════ -->
-    <div class="contact-hero page-hero" style="background-image:url('../assets/img/hero-contact.png');background-size:cover;background-position:center 25%;">
+    <div class="contact-hero page-hero" style="background-image:url('../assets/img/hero-contact.png');background-size:cover;background-position:center 35%;">
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="contact-hero__glow" aria-hidden="true"></div>
       <div class="contact-hero__inner">
@@ -229,6 +229,25 @@
     const form      = document.getElementById('contactForm');
     const submitBtn = document.getElementById('formSubmit');
     const feedback  = document.getElementById('formFeedback');
+    const nameEl    = document.getElementById('contactName');
+    const emailEl   = document.getElementById('contactEmail');
+    const messageEl = document.getElementById('contactMessage');
+
+    // Start disabled
+    submitBtn.disabled = true;
+
+    // Enable only when required fields are filled
+    function checkFields() {
+      const filled =
+        nameEl.value.trim() !== '' &&
+        emailEl.value.trim() !== '' &&
+        messageEl.value.trim() !== '';
+      submitBtn.disabled = !filled;
+    }
+
+    nameEl.addEventListener('input', checkFields);
+    emailEl.addEventListener('input', checkFields);
+    messageEl.addEventListener('input', checkFields);
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
