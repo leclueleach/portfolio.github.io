@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Le Clue Leach — Portfolio. Interactive demos, dashboards and automation projects.">
+  <title>Le Clue — Portfolio</title>
+  <link rel="icon" href="../assets/img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/page-hero.css">
+  <link rel="stylesheet" href="./portfolio.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+  <nav class="nav nav--solid" id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="../index.html" class="nav__logo" aria-label="Le Clue home">
+      <div class="nav__logo-mark" aria-hidden="true">LC</div>
+      <span class="nav__logo-name">Le Clue</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="../index.html"     class="nav__link">Home</a></li>
+      <li><a href="./about.html"     class="nav__link">About</a></li>
+      <li><a href="./portfolio.html" class="nav__link active" aria-current="page">Portfolio</a></li>
+      <li><a href="./cv.html"        class="nav__link">CV</a></li>
+      <li><a href="./qa.html"        class="nav__link">Q&amp;A</a></li>
+      <li><a href="./contact.html"   class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="portfolio-page">
+
+    <!-- HERO -->
+    <div class="portfolio-hero page-hero" style="background-image:url('../assets/img/hero-portfolio.png');background-size:cover;background-position:center 45%;">
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="portfolio-hero__glow" aria-hidden="true"></div>
+      <div class="portfolio-hero__inner">
+        <div>
+          <div class="portfolio-hero__eyebrow">Portfolio</div>
+          <h1 class="portfolio-hero__heading">The work<br>speaks for itself.</h1>
+          <p class="portfolio-hero__sub">Interactive demos, dashboards and automation projects — built to solve real problems.</p>
+        </div>
+        <div class="portfolio-hero__count">
+          <div class="portfolio-hero__count-num" id="demoTotal">0</div>
+          <div class="portfolio-hero__count-label">Demos &amp; growing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         DASHBOARDS SECTION
+    ══════════════════════════════════════════════════════ -->
+    <div class="portfolio-section">
+      <div class="portfolio-section__inner">
+        <div class="portfolio-section__eyebrow reveal">Dashboards</div>
+        <h2 class="portfolio-section__title reveal">Data visualisation &amp; reporting</h2>
+
+        <div class="portfolio-grid">
+
+          <!-- Vaultic — real -->
+          <div class="demo-card reveal">
+            <div class="demo-card__thumb">
+              <img src="../assets/img/vaultic-thumb.png" alt="Vaultic SaaS Executive Dashboard" loading="lazy">
+            </div>
+            <div class="demo-card__body">
+              <div class="demo-card__category">Financial SaaS</div>
+              <h3 class="demo-card__title">Vaultic Executive Dashboard</h3>
+              <p class="demo-card__desc">Interactive SaaS reporting with MRR trends, customer growth vs churn, revenue by plan gauges, and a revenue mix breakdown. No frameworks, no dependencies.</p>
+              <div class="demo-card__tags">
+                <span class="p-tag p-tag--teal">Dashboard</span>
+                <span class="p-tag p-tag--teal">Data Viz</span>
+                <span class="p-tag">HTML / CSS / JS</span>
+              </div>
+            </div>
+            <div class="demo-card__footer">
+              <a href="https://lecluesportfolio.github.io/lc-demo-vaultic"
+                 class="demo-card__launch launch-demo"
+                 data-demo="vaultic"
+                 data-url="https://lecluesportfolio.github.io/lc-demo-vaultic"
+                 target="_blank" rel="noopener noreferrer">
+                Launch Demo ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Placeholder — Operations Analytics -->
+          <div class="demo-card demo-card--placeholder reveal">
+            <div class="demo-card__thumb">
+              <div class="demo-card__thumb-placeholder">
+                <div class="demo-card__thumb-icon">📊</div>
+                <div class="demo-card__thumb-label">Coming soon</div>
+              </div>
+            </div>
+            <div class="demo-card__body">
+              <div class="demo-card__category">Operations · Looker Studio</div>
+              <h3 class="demo-card__title">Operations Analytics Dashboard</h3>
+              <p class="demo-card__desc">Production timing and cost visibility for cross-functional teams — drill-down reporting with on-time/late tracking and exec roll-ups.</p>
+              <div class="demo-card__tags">
+                <span class="p-tag p-tag--teal">Dashboard</span>
+                <span class="p-tag">Looker Studio</span>
+              </div>
+            </div>
+            <div class="demo-card__footer">
+              <span class="demo-card__status demo-card__status--progress">In progress</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         AUTOMATION SECTION
+    ══════════════════════════════════════════════════════ -->
+    <div class="portfolio-section">
+      <div class="portfolio-section__inner">
+        <div class="portfolio-section__eyebrow rust reveal">Automation</div>
+        <h2 class="portfolio-section__title reveal">Workflows &amp; pipelines</h2>
+
+        <div class="portfolio-grid">
+
+          <!-- Placeholder — Billing Automation -->
+          <div class="demo-card demo-card--placeholder reveal">
+            <div class="demo-card__thumb">
+              <div class="demo-card__thumb-placeholder">
+                <div class="demo-card__thumb-icon">⚙️</div>
+                <div class="demo-card__thumb-label">Coming soon</div>
+              </div>
+            </div>
+            <div class="demo-card__body">
+              <div class="demo-card__category">Finance · Google Apps Script</div>
+              <h3 class="demo-card__title">Billing Automation Pipeline</h3>
+              <p class="demo-card__desc">Automated billing workflow using Google Sheets and Apps Script — dynamic sheet targeting, formatted HTML emails, and Supabase logging.</p>
+              <div class="demo-card__tags">
+                <span class="p-tag p-tag--rust">Automation</span>
+                <span class="p-tag">Apps Script</span>
+                <span class="p-tag">Google Sheets</span>
+              </div>
+            </div>
+            <div class="demo-card__footer">
+              <span class="demo-card__status demo-card__status--progress">In progress</span>
+            </div>
+          </div>
+
+          <!-- Placeholder — Mass Ticket Generator -->
+          <div class="demo-card demo-card--placeholder reveal">
+            <div class="demo-card__thumb">
+              <div class="demo-card__thumb-placeholder">
+                <div class="demo-card__thumb-icon">🎫</div>
+                <div class="demo-card__thumb-label">Coming soon</div>
+              </div>
+            </div>
+            <div class="demo-card__body">
+              <div class="demo-card__category">Project Management · Jira</div>
+              <h3 class="demo-card__title">Mass Ticket Generator</h3>
+              <p class="demo-card__desc">Google Sheets + Apps Script tool that generates hundreds of structured Jira tickets with epics, sub-tasks and dependencies in minutes.</p>
+              <div class="demo-card__tags">
+                <span class="p-tag p-tag--rust">Automation</span>
+                <span class="p-tag">Jira</span>
+                <span class="p-tag">Apps Script</span>
+              </div>
+            </div>
+            <div class="demo-card__footer">
+              <span class="demo-card__status">Planned</span>
+            </div>
+          </div>
+
+          <!-- Placeholder — Coupon Portal -->
+          <div class="demo-card demo-card--placeholder reveal">
+            <div class="demo-card__thumb">
+              <div class="demo-card__thumb-placeholder">
+                <div class="demo-card__thumb-icon">🎟️</div>
+                <div class="demo-card__thumb-label">Coming soon</div>
+              </div>
+            </div>
+            <div class="demo-card__body">
+              <div class="demo-card__category">System · Google Sheets</div>
+              <h3 class="demo-card__title">Coupon Delivery Portal</h3>
+              <p class="demo-card__desc">Access-controlled coupon portal built in Google Sheets and Apps Script — self-serve fulfilment with audit-ready logs for Finance.</p>
+              <div class="demo-card__tags">
+                <span class="p-tag p-tag--rust">System</span>
+                <span class="p-tag">Apps Script</span>
+              </div>
+            </div>
+            <div class="demo-card__footer">
+              <span class="demo-card__status">Planned</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="portfolio-footer" role="contentinfo">
+      <div class="portfolio-footer__copy">
+        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from scratch, Cape Town.
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="portfolio-footer__links">
+          <li><a href="../index.html"   class="portfolio-footer__link">Home</a></li>
+          <li><a href="./about.html"   class="portfolio-footer__link">About</a></li>
+          <li><a href="./cv.html"      class="portfolio-footer__link">CV</a></li>
+          <li><a href="./contact.html" class="portfolio-footer__link">Contact</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8593;</button>
+
+  <script src="../assets/js/supabase.js" defer></script>
+  <script src="../assets/js/nav.js" defer></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nav = document.getElementById('mainNav');
+    const btt = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      btt.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Count real demos only
+    const realDemos = document.querySelectorAll('.demo-card:not(.demo-card--placeholder)').length;
+    document.getElementById('demoTotal').textContent = realDemos;
+
+    // Demo launch tracking
+    document.querySelectorAll('.launch-demo').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (window.LC?.logDemoView) window.LC.logDemoView(btn.dataset.demo);
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

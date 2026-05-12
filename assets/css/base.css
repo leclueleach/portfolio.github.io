@@ -1,0 +1,218 @@
+/* ============================================================
+   BASE.CSS — Le Clue Portfolio
+   Global reset, body defaults, and viewport setup.
+   Import after tokens.css, before everything else.
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   RESET
+---------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ----------------------------------------------------------
+   SURFACE MODES
+   Apply .surface-dark or .surface-light to <body>
+   or any wrapper to set the colour context for that page.
+---------------------------------------------------------- */
+body.surface-dark,
+.surface-dark {
+  background-color: var(--dark-base);
+  color: var(--text-dark-primary);
+}
+
+body.surface-light,
+.surface-light {
+  background-color: var(--light-base);
+  color: var(--text-light-primary);
+}
+
+/* ----------------------------------------------------------
+   TYPOGRAPHY DEFAULTS
+---------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+h5 { font-size: var(--text-xl); }
+h6 { font-size: var(--text-lg); }
+
+p {
+  line-height: var(--leading-relaxed);
+  max-width: 65ch;
+}
+
+a {
+  color: var(--teal-500);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover { color: var(--teal-400); }
+
+strong { font-weight: var(--weight-semibold); }
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol { list-style: none; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+}
+
+/* ----------------------------------------------------------
+   PAGE LAYOUT WRAPPER
+   Used on every page — accounts for fixed nav height
+   and sets up the content area.
+---------------------------------------------------------- */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+.page-content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-8) var(--content-padding);
+}
+
+/* Full viewport height content (no-scroll pages) */
+.page-content.full-height {
+  height: calc(100vh - var(--nav-height));
+  overflow: hidden;
+  padding: 0;
+}
+
+/* ----------------------------------------------------------
+   SECTION LABELS (mono eyebrow text above headings)
+---------------------------------------------------------- */
+.section-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--teal-400);
+  margin-bottom: var(--space-3);
+}
+
+/* ----------------------------------------------------------
+   DIVIDERS
+---------------------------------------------------------- */
+.divider {
+  border: none;
+  border-top: 1px solid var(--dark-border);
+}
+
+.surface-light .divider {
+  border-top-color: var(--light-border);
+}
+
+/* ----------------------------------------------------------
+   SCROLLBAR STYLING (dark surfaces)
+---------------------------------------------------------- */
+.surface-dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.surface-dark ::-webkit-scrollbar-track {
+  background: var(--dark-surface);
+}
+
+.surface-dark ::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
+  border-radius: var(--radius-full);
+}
+
+.surface-dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--teal-600);
+}
+
+/* ----------------------------------------------------------
+   SELECTION COLOUR
+---------------------------------------------------------- */
+::selection {
+  background: var(--teal-glow);
+  color: var(--teal-400);
+}
+
+/* ----------------------------------------------------------
+   FOCUS RING (accessibility)
+---------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--teal-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ----------------------------------------------------------
+   UTILITY CLASSES
+---------------------------------------------------------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-teal   { color: var(--teal-400); }
+.text-rust   { color: var(--rust-400); }
+.text-muted  { color: var(--text-dark-secondary); }
+.font-mono   { font-family: var(--font-mono); }
+.font-display { font-family: var(--font-display); }
+
+.surface-light .text-muted { color: var(--text-light-secondary); }

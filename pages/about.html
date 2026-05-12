@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Le Clue Leach — Technical Solutions Manager, BI Specialist, Cape Town.">
+  <title>Le Clue — About</title>
+  <link rel="icon" href="../assets/img/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/page-hero.css">
+  <link rel="stylesheet" href="./about.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+  <nav class="nav nav--solid" id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="../index.html" class="nav__logo" aria-label="Le Clue home">
+      <div class="nav__logo-mark" aria-hidden="true">LC</div>
+      <span class="nav__logo-name">Le Clue</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="../index.html"     class="nav__link">Home</a></li>
+      <li><a href="./about.html"     class="nav__link active" aria-current="page">About</a></li>
+      <li><a href="./portfolio.html" class="nav__link">Portfolio</a></li>
+      <li><a href="./cv.html"        class="nav__link">CV</a></li>
+      <li><a href="./qa.html"        class="nav__link">Q&amp;A</a></li>
+      <li><a href="./contact.html"   class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="about-page">
+
+    <!-- HERO -->
+    <div class="about-hero page-hero" style="background-image:url('../assets/img/hero-about.png');background-size:cover;background-position:center 40%;">
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="about-hero__glow-teal" aria-hidden="true"></div>
+      <div class="about-hero__glow-rust" aria-hidden="true"></div>
+      <div class="about-hero__inner">
+        <div class="about-hero__eyebrow">About me</div>
+        <h1 class="about-hero__heading">The person<br>behind the data.</h1>
+        <p class="about-hero__sub">Nine years of turning fuzzy problems into systems you can trust — and teaching the robots to run them.</p>
+      </div>
+    </div>
+
+    <!-- TAB BAR -->
+    <div class="about-tabs-wrap">
+      <div class="about-tabs" role="tablist" aria-label="About sections">
+        <button class="about-tab active" data-tab="about-me" role="tab" aria-selected="true" aria-controls="panel-about-me">
+          About Me
+        </button>
+        <button class="about-tab" data-tab="ai-stance" role="tab" aria-selected="false" aria-controls="panel-ai-stance">
+          AI Stance
+        </button>
+      </div>
+    </div>
+
+    <!-- TAB CONTENT -->
+    <div class="about-content">
+
+      <!-- ── PANEL 1 — ABOUT ME ─────────────────────────── -->
+      <div class="about-panel active" id="panel-about-me" role="tabpanel">
+        <div class="about-section">
+
+          <div class="about-grid">
+
+            <!-- Left — Bio + Ethos -->
+            <div>
+              <blockquote class="about-bio__quote reveal">
+                "I turn fuzzy problems into systems you can trust — then teach the robots to run them so humans can do the thinking."
+              </blockquote>
+
+              <p class="about-bio__text reveal">
+                I am a <strong>Technical Solutions Manager</strong> based in Cape Town with 9 years at EDGE Education — a role I did not inherit, I built the case for it by showing exactly which data was missing and what the right workflows would unlock.
+              </p>
+
+              <p class="about-bio__text reveal">
+                I am self-taught across most of what I do. No formal handovers, no playbooks — just <strong>curiosity, persistence, and a trail of working systems</strong>. In more than a few cases I learned it, built it, and then taught the team.
+              </p>
+
+              <p class="about-bio__text reveal">
+                I design workflows and data models that make time and cost visible, reporting that runs itself, and SOPs that outlive the meeting. Happiest when a <strong>45-minute job becomes a 45-second click</strong>. Based in Cape Town and <strong>remote-friendly</strong>.
+              </p>
+
+              <div class="about-ethos reveal">
+                <div class="about-ethos__label">How I work</div>
+                <div class="about-ethos__item">
+                  <div class="about-ethos__dot"></div>
+                  <p class="about-ethos__text"><strong>Automate first</strong> — If I do it twice, I script it. If it needs one more tweak, I build a pipeline.</p>
+                </div>
+                <div class="about-ethos__item">
+                  <div class="about-ethos__dot"></div>
+                  <p class="about-ethos__text"><strong>Make it explainable</strong> — Clean structures, clear joins, obvious ownership, plain-English docs.</p>
+                </div>
+                <div class="about-ethos__item">
+                  <div class="about-ethos__dot"></div>
+                  <p class="about-ethos__text"><strong>Design for audit</strong> — Log inputs and outputs, validate transformations, version queries.</p>
+                </div>
+                <div class="about-ethos__item">
+                  <div class="about-ethos__dot"></div>
+                  <p class="about-ethos__text"><strong>Calm beats clever</strong> — Stable, predictable delivery over fragile one-offs.</p>
+                </div>
+                <div class="about-ethos__item">
+                  <div class="about-ethos__dot"></div>
+                  <p class="about-ethos__text"><strong>Impact first</strong> — Start at the bottleneck, fix the source of pain, create lasting capacity.</p>
+                </div>
+              </div>
+
+              <div style="margin-top:28px;" class="reveal">
+                <a href="./cv.html" class="about-link">View full CV &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Right — Stats + Tools -->
+            <div class="reveal">
+              <div class="about-skills__stats">
+                <div class="about-stat">
+                  <div class="about-stat__value">9<span class="about-stat__unit">yr</span></div>
+                  <div class="about-stat__label">Experience</div>
+                </div>
+                <div class="about-stat">
+                  <div class="about-stat__value">70<span class="about-stat__unit">%</span></div>
+                  <div class="about-stat__label">Build time saved</div>
+                </div>
+                <div class="about-stat">
+                  <div class="about-stat__value">20<span class="about-stat__unit">+</span></div>
+                  <div class="about-stat__label">Reports automated</div>
+                </div>
+                <div class="about-stat">
+                  <div class="about-stat__value">1.3<span class="about-stat__unit">K+</span></div>
+                  <div class="about-stat__label">Tickets generated</div>
+                </div>
+              </div>
+
+              <div class="about-tools__heading">Tools &amp; technologies</div>
+              <div class="about-tools__grid" id="toolsGrid">
+                <div class="about-tool"><div class="about-tool__name">Google Apps Script</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="90"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">Google Sheets</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="92"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">Looker Studio</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="85"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">Jira &amp; Tempo</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="88"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">SQL / MySQL</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="78"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">REST APIs</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="72"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">Workflow Design</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="93"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">Data Modelling</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="80"></div></div></div>
+                <div class="about-tool"><div class="about-tool__name">Process Optimisation</div><div class="about-tool__bar"><div class="about-tool__fill" data-w="88"></div></div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PANEL 2 — AI STANCE ────────────────────────── -->
+      <div class="about-panel" id="panel-ai-stance" role="tabpanel">
+        <div class="about-section">
+
+          <div class="ai-grid">
+
+            <!-- Left — Intro + Principles -->
+            <div>
+              <p class="ai-intro reveal">
+                I use AI as a <strong>research partner and code co-pilot</strong> — great for scaffolding, edge-case hunting, and first drafts. I never share secrets (I redact or synthesise data) and I always verify with tests and human review before release.
+              </p>
+
+              <div class="ai-principles reveal">
+                <div class="ai-principle">
+                  <div class="ai-principle__title">Brainstorm &amp; research</div>
+                  <p class="ai-principle__text">I use AI to pressure-test ideas, surface counter-examples and edge cases, and produce clear summaries I can share with stakeholders.</p>
+                </div>
+                <div class="ai-principle">
+                  <div class="ai-principle__title">Build faster</div>
+                  <p class="ai-principle__text">I have AI draft SQL and Google Apps Script snippets, scaffold data models, and generate first-pass SOPs and technical notes — which I then refine.</p>
+                </div>
+                <div class="ai-principle">
+                  <div class="ai-principle__title">Improve accuracy</div>
+                  <p class="ai-principle__text">I ask AI to check logic, highlight inconsistencies across sources, and flag ambiguous metrics to reduce reporting risk.</p>
+                </div>
+                <div class="ai-principle">
+                  <div class="ai-principle__title">Operate responsibly</div>
+                  <p class="ai-principle__text">I redact or synthesise sensitive inputs, keep human review in the loop, and treat AI output as a draft until validated with data and tests.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right — Visual cards -->
+            <div class="ai-visual reveal">
+
+              <div class="ai-visual__card">
+                <div class="ai-visual__label">My stance</div>
+                <p class="ai-visual__quote">"AI is a multiplier, not a replacement. The judgment, the accountability, and the final call always stay with the human."</p>
+              </div>
+
+              <div class="ai-visual__card">
+                <div class="ai-visual__label">How I stay responsible</div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <p class="ai-visual__rule"><strong>Never share sensitive data</strong> — I always redact or synthesise before passing anything to an AI tool.</p>
+                  <p class="ai-visual__rule"><strong>Always verify</strong> — AI output is a draft. It goes through logic checks, data validation, and human review before release.</p>
+                  <p class="ai-visual__rule"><strong>Cite the tool</strong> — When AI contributes to a deliverable, I note it. Transparency builds trust.</p>
+                  <p class="ai-visual__rule"><strong>Understand what it built</strong> — If I cannot explain every line of AI-generated code, I do not ship it.</p>
+                </div>
+              </div>
+
+              <div class="ai-visual__card">
+                <div class="ai-visual__label">Tools I use</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+                  <span class="ai-tool-tag">Claude</span>
+                  <span class="ai-tool-tag">ChatGPT</span>
+                  <span class="ai-tool-tag">GitHub Copilot</span>
+                  <span class="ai-tool-tag">Gemini</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="about-footer" role="contentinfo">
+      <div class="about-footer__copy">
+        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from scratch, Cape Town.
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="about-footer__links">
+          <li><a href="../index.html"    class="about-footer__link">Home</a></li>
+          <li><a href="./portfolio.html" class="about-footer__link">Portfolio</a></li>
+          <li><a href="./cv.html"        class="about-footer__link">CV</a></li>
+          <li><a href="./contact.html"   class="about-footer__link">Contact</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8593;</button>
+
+  <script src="../assets/js/supabase.js" defer></script>
+  <script src="../assets/js/nav.js" defer></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nav = document.getElementById('mainNav');
+    const btt = document.getElementById('backToTop');
+    const tabsWrap = document.querySelector('.about-tabs-wrap');
+
+    function updateTabTop() {
+      if (tabsWrap) tabsWrap.style.top = nav.offsetHeight + 'px';
+    }
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      btt.classList.toggle('visible', window.scrollY > 300);
+      updateTabTop();
+    }, { passive: true });
+
+    updateTabTop();
+
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Tab switching
+    document.querySelectorAll('.about-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.about-tab').forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.about-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById('panel-' + target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Trigger tool bars if switching to about-me
+        if (target === 'about-me') animateBars();
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Tool bar animation
+    function animateBars() {
+      document.querySelectorAll('.about-tool__fill').forEach(fill => {
+        const w = fill.dataset.w;
+        if (w) fill.style.width = w + '%';
+      });
+    }
+
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { animateBars(); barObserver.unobserve(entry.target); }
+      });
+    }, { threshold: 0.3 });
+
+    const toolsGrid = document.getElementById('toolsGrid');
+    if (toolsGrid) barObserver.observe(toolsGrid);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+/* ============================================================
+   PAGE-HERO.CSS — Le Clue Portfolio
+   Hero image backgrounds for inner pages.
+   Background images set via inline styles on each hero div.
+   Overlay is an actual HTML element to avoid z-index conflicts.
+   ============================================================ */
+
+.page-hero {
+  position: relative;
+}
+
+/* Overlay div — sits above background image, below content */
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(6,9,20,0.6)  0%,
+      rgba(6,9,20,0.25) 35%,
+      rgba(6,9,20,0.5)  70%,
+      rgba(6,9,20,1.0)  100%),
+    linear-gradient(to right,
+      rgba(6,9,20,0.72) 0%,
+      rgba(6,9,20,0.1)  55%,
+      rgba(6,9,20,0.0)  100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* All direct children except overlay sit above it */
+.page-hero > *:not(.hero-overlay) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hide old glow divs */
+.page-hero .about-hero__glow-teal,
+.page-hero .about-hero__glow-rust,
+.page-hero .qa-hero__glow,
+.page-hero .portfolio-hero__glow,
+.page-hero .contact-hero__glow {
+  display: none;
+}

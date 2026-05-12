@@ -1,0 +1,503 @@
+/* ============================================================
+   CV.CSS — Le Clue Portfolio — CV Page
+   Page-specific styles. Depends on tokens.css, base.css,
+   nav.css, components.css.
+   ============================================================ */
+
+body {
+  background: #06090f;
+  color: #F0F2F8;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── PAGE LAYOUT ─────────────────────────────────────────── */
+.cv-page {
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+/* ── HERO HEADER ─────────────────────────────────────────── */
+.cv-hero {
+  padding: 60px 48px 52px;
+  position: relative;
+}
+
+/* Subtle grid texture */
+
+/* Teal glow top left */
+
+.cv-hero__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+
+.cv-hero__eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #14B8A6;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cv-hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: #14B8A6;
+}
+
+.cv-hero__name {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #F0F2F8;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.cv-hero__role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.cv-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cv-hero__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid #F97316;
+  color: #F97316;
+  background: #f974161a;
+  letter-spacing: 0.06em;
+}
+
+.cv-hero__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+/* ── STICKY TAB BAR ──────────────────────────────────────── */
+.cv-toggle-wrap {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 49;
+  background: #06090f;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.cv-toggle {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+}
+
+.cv-toggle__btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 22px;
+  height: 100%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.3);
+  white-space: nowrap;
+}
+
+.cv-toggle__btn::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.cv-toggle__btn:hover {
+  color: rgba(255,255,255,0.65);
+}
+
+.cv-toggle__btn.active {
+  color: #2DD4BF;
+}
+
+.cv-toggle__btn.active::before {
+  background: #14B8A6;
+  box-shadow: 0 0 6px #14B8A6;
+}
+
+.cv-toggle__btn[data-view="full"].active {
+  color: #FB923C;
+}
+
+.cv-toggle__btn[data-view="full"].active::before {
+  background: #F97316;
+  box-shadow: 0 0 6px #F97316;
+}
+
+.cv-toggle__btn.active {
+  background: rgba(20,184,166,0.12);
+  color: #2DD4BF;
+  border: 1px solid rgba(20,184,166,0.25);
+}
+
+.cv-toggle__btn:hover:not(.active) {
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.04);
+}
+
+/* ── CV CONTENT AREA ─────────────────────────────────────── */
+.cv-content {
+  background: #06090f;
+  min-height: 60vh;
+}
+
+.cv-view {
+  display: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 48px 80px;
+}
+.cv-view.active { display: block; }
+
+/* ── SECTION BLOCKS ──────────────────────────────────────── */
+.cv-section {
+  margin-bottom: 40px;
+}
+
+.cv-section__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.cv-section__badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(20,184,166,0.08);
+  color: #2DD4BF;
+  border: 1px solid rgba(20,184,166,0.25);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.cv-section__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.02em;
+}
+
+/* ── PROFILE TEXT ────────────────────────────────────────── */
+.cv-profile {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+  text-align: justify;
+  max-width: 100%;
+}
+
+.cv-profile p + p { margin-top: 12px; }
+
+/* ── ROLE CARDS ──────────────────────────────────────────── */
+.cv-roles { display: flex; flex-direction: column; gap: 12px; }
+
+.cv-role {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.cv-role__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.cv-role__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  margin: 0;
+}
+
+.cv-role__dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+.cv-role__company {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #14B8A6;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cv-role__bullets {
+  list-style: disc outside;
+  margin: 0;
+  padding-left: 20px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.65;
+}
+
+.cv-role__bullets li { margin: 5px 0; }
+.cv-role__bullets li::marker { color: #14B8A6; }
+
+.cv-role__blurb {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.65;
+  margin-top: 6px;
+}
+
+/* ── SKILLS / TAGS ───────────────────────────────────────── */
+.cv-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cv-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(20,184,166,0.2);
+  background: rgba(20,184,166,0.05);
+  color: #14B8A6;
+}
+
+/* ── ACHIEVEMENTS / IMPACT ───────────────────────────────── */
+.cv-achievement {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.cv-achievement:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cv-achievement__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 6px;
+}
+
+.cv-achievement__text {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.cv-impact {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  align-items: start;
+  column-gap: 10px;
+  background: rgba(249,115,22,0.05);
+  border: 1px solid rgba(249,115,22,0.15);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 6px;
+}
+
+.cv-impact__pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(249,115,22,0.1);
+  color: #FB923C;
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 6px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.cv-impact__text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.6;
+}
+
+/* ── TWO COLUMN LAYOUT (short cv) ────────────────────────── */
+.cv-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+}
+
+.cv-col { display: flex; flex-direction: column; gap: 24px; }
+
+/* ── STAT HIGHLIGHT ROW (short cv) ──────────────────────── */
+.cv-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.cv-stat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.cv-stat__value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2DD4BF;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.cv-stat__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── DOWNLOAD BUTTON ─────────────────────────────────────── */
+.cv-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 8px;
+  background: rgba(20,184,166,0.9);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+}
+
+.cv-download-btn:hover {
+  background: #0D9488;
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.cv-content p {
+  max-width: 100%;
+}
+@media print {
+  /* Hide everything except the active CV view */
+  .nav,
+  .cv-hero,
+  .cv-toggle-wrap,
+  .cv-download-btn,
+  .cv-hero__actions,
+  .footer { display: none !important; }
+
+  body {
+    background: #fff !important;
+    color: #1D2733 !important;
+    font-size: 11px;
+  }
+
+  .cv-page { padding-top: 0; }
+  .cv-content { background: #fff; }
+
+  .cv-view {
+    display: block !important;
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  /* Show only the active view when printing */
+  .cv-view:not(.active) { display: none !important; }
+
+  .cv-section { margin-bottom: 20px; }
+  .cv-role { break-inside: avoid; }
+  .cv-achievement { break-inside: avoid; }
+
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .cv-hero { padding: 48px 24px 40px; }
+  .cv-hero__inner { grid-template-columns: 1fr; }
+  .cv-hero__actions { align-items: flex-start; flex-direction: row; }
+  .cv-toggle-wrap { padding: 16px 24px; }
+  .cv-view { padding: 32px 24px 60px; }
+  .cv-grid { grid-template-columns: 1fr; }
+  .cv-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .cv-stats { grid-template-columns: repeat(2, 1fr); }
+  .cv-hero__tags { display: none; }
+}

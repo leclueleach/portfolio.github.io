@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Le Clue Leach — CV. Technical Solutions Manager and BI Specialist, Cape Town.">
+  <title>Le Clue — CV</title>
+
+  <link rel="icon" href="../assets/img/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/page-hero.css">
+  <link rel="stylesheet" href="./cv.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav nav--solid" id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="../index.html" class="nav__logo" aria-label="Le Clue home">
+      <div class="nav__logo-mark" aria-hidden="true">LC</div>
+      <span class="nav__logo-name">Le Clue</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="../index.html"    class="nav__link">Home</a></li>
+      <li><a href="./about.html"    class="nav__link">About</a></li>
+      <li><a href="./portfolio.html" class="nav__link">Portfolio</a></li>
+      <li><a href="./cv.html"       class="nav__link active" aria-current="page">CV</a></li>
+      <li><a href="./qa.html"       class="nav__link">Q&amp;A</a></li>
+      <li><a href="./contact.html"  class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="cv-page">
+
+    <!-- ══════════════════════════════════════════════════
+         HERO HEADER
+    ══════════════════════════════════════════════════════ -->
+    <div class="cv-hero page-hero" style="background-image:url('../assets/img/hero-cv.png');background-size:cover;background-position:center 50%;">
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="cv-hero__inner">
+        <div>
+          <div class="cv-hero__eyebrow">Curriculum Vitae</div>
+          <h1 class="cv-hero__name">Le Clue Leach</h1>
+          <div class="cv-hero__role">Technical Solutions Manager &middot; BI &amp; Automation Specialist</div>
+          <div class="cv-hero__tags">
+            <span class="cv-hero__tag">Automation</span>
+            <span class="cv-hero__tag">Data Modelling</span>
+            <span class="cv-hero__tag">Google Apps Script</span>
+            <span class="cv-hero__tag">Looker Studio</span>
+            <span class="cv-hero__tag">Jira</span>
+            <span class="cv-hero__tag">SQL</span>
+            <span class="cv-hero__tag">Workflow Design</span>
+            <span class="cv-hero__tag">Process Optimisation</span>
+          </div>
+        </div>
+        <div class="cv-hero__actions">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+            <a href="../assets/files/Le_Clue_Leach-Resume.pdf"
+               download
+               class="cv-download-btn"
+               onclick="if(window.LC&&window.LC.logCvDownload)window.LC.logCvDownload()"
+               aria-label="Download Resume PDF">
+              ↓ Resume PDF
+            </a>
+            <a href="../assets/files/Le_Clue_Leach-CV.pdf"
+               download
+               class="cv-download-btn"
+               style="background:rgba(249,115,22,0.85);border-color:rgba(249,115,22,0.5);"
+               onclick="if(window.LC&&window.LC.logCvDownload)window.LC.logCvDownload()"
+               aria-label="Download Full CV PDF">
+              ↓ Full CV PDF
+            </a>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255, 255, 255, 0.596);text-align:right;letter-spacing:0.08em;margin-top:8px;">
+            Langeberg Ridge, Cape Town<br>
+            lecluesemail@gmail.com
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         TOGGLE BAR
+    ══════════════════════════════════════════════════════ -->
+    <div class="cv-toggle-wrap">
+      <div class="cv-toggle" role="group" aria-label="CV version selector">
+        <button class="cv-toggle__btn active" data-view="short" onclick="switchView('short')" aria-pressed="true">
+          Resume — Key highlights
+        </button>
+        <button class="cv-toggle__btn" data-view="full" onclick="switchView('full')" aria-pressed="false">
+          Full CV — Complete detail
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         CV CONTENT
+    ══════════════════════════════════════════════════════ -->
+    <div class="cv-content">
+
+      <!-- ────────────────────────────────────────────────
+           SHORT VERSION — Resume highlights
+      ──────────────────────────────────────────────────── -->
+      <div class="cv-view active" id="view-short">
+
+        <!-- Stats row -->
+        <div class="cv-stats">
+          <div class="cv-stat">
+            <div class="cv-stat__value">9<span style="font-size:1rem;">yr</span></div>
+            <div class="cv-stat__label">Experience</div>
+          </div>
+          <div class="cv-stat">
+            <div class="cv-stat__value">70<span style="font-size:1rem;">%</span></div>
+            <div class="cv-stat__label">Build time saved</div>
+          </div>
+          <div class="cv-stat">
+            <div class="cv-stat__value">20<span style="font-size:1rem;">+</span></div>
+            <div class="cv-stat__label">Reports automated</div>
+          </div>
+          <div class="cv-stat">
+            <div class="cv-stat__value">1.3<span style="font-size:1rem;">K+</span></div>
+            <div class="cv-stat__label">Tickets auto-generated</div>
+          </div>
+        </div>
+
+        <div class="cv-grid">
+
+          <!-- LEFT COLUMN -->
+          <div class="cv-col">
+
+            <!-- Profile -->
+            <div class="cv-section">
+              <div class="cv-section__header">
+                <span class="cv-section__badge">Profile</span>
+                <span class="cv-section__title">Schema overview</span>
+              </div>
+              <p class="cv-profile">
+                I am a Technical Solutions Manager with 9+ years' experience building data infrastructure
+                and automated workflows that turn operational noise into reliable insights. I am self-taught
+                in SQL, Jira administration, Google Apps Script, and reporting. I created my current role by
+                identifying a business need and building the systems to address it. I automate repeatable
+                work, design for auditability, and translate between stakeholders and engineers.
+              </p>
+            </div>
+
+            <!-- Key Achievements -->
+            <div class="cv-section">
+              <div class="cv-section__header">
+                <span class="cv-section__badge">Results</span>
+                <span class="cv-section__title">Key achievements</span>
+              </div>
+              <ul class="cv-role__bullets">
+                <li>Created a role by identifying a business need and building the systems to address it</li>
+                <li>Reduced build time by 70% for Storyline deliverables</li>
+                <li>Automated reporting suite with 20+ recurring reports</li>
+                <li>Created custom client analytics saving 2–5 hours per report</li>
+                <li>Redesigned Jira for accurate time &amp; cost reporting</li>
+                <li>Built a production timings &amp; cost system for full transparency</li>
+                <li>Provided company-wide analytics support for executive decision-making</li>
+                <li>Configured mass Jira ticket generation — 1,300+ tickets created in minutes</li>
+              </ul>
+            </div>
+
+            <!-- Core Strengths -->
+            <div class="cv-section">
+              <div class="cv-section__header">
+                <span class="cv-section__badge">Strengths</span>
+                <span class="cv-section__title">Core strengths</span>
+              </div>
+              <ul class="cv-role__bullets">
+                <li><strong>Design</strong> audit-ready systems with built-in validation</li>
+                <li><strong>Research</strong> independently and solve complex problems</li>
+                <li><strong>Bridge</strong> technical complexity and business needs</li>
+                <li><strong>Foster</strong> collaboration and positive team dynamics</li>
+                <li><strong>Anticipate</strong> risks early and resolve challenges before they impact outcomes</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div class="cv-col">
+
+            <!-- Experience -->
+            <div class="cv-section">
+              <div class="cv-section__header">
+                <span class="cv-section__badge">Experience</span>
+                <span class="cv-section__title">Recent roles</span>
+              </div>
+              <div class="cv-roles">
+                <div class="cv-role">
+                  <div class="cv-role__header">
+                    <h3 class="cv-role__title">Technical Solutions Manager</h3>
+                    <span class="cv-role__dates">05/2023 — Present</span>
+                  </div>
+                  <div class="cv-role__company">EDGE Education — Cape Town</div>
+                  <p class="cv-role__blurb">Own data pipeline, Jira workflows, and reporting infrastructure for EdTech production operations.</p>
+                </div>
+                <div class="cv-role">
+                  <div class="cv-role__header">
+                    <h3 class="cv-role__title">Learning Technologist / Team Lead</h3>
+                    <span class="cv-role__dates">07/2019 — 05/2023</span>
+                  </div>
+                  <div class="cv-role__company">EDGE Education — Cape Town</div>
+                  <p class="cv-role__blurb">Built and led a high-performing learning-technology team. First line for functional and technical queries.</p>
+                </div>
+                <div class="cv-role">
+                  <div class="cv-role__header">
+                    <h3 class="cv-role__title">Multimedia Designer</h3>
+                    <span class="cv-role__dates">12/2018 — 07/2019</span>
+                  </div>
+                  <div class="cv-role__company">EDGE Education — Cape Town</div>
+                </div>
+                <div class="cv-role">
+                  <div class="cv-role__header">
+                    <h3 class="cv-role__title">Instructional Design Admin &amp; Support</h3>
+                    <span class="cv-role__dates">04/2017 — 12/2018</span>
+                  </div>
+                  <div class="cv-role__company">EDGE Education — Cape Town</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Education -->
+            <div class="cv-section">
+              <div class="cv-section__header">
+                <span class="cv-section__badge">Education</span>
+                <span class="cv-section__title">Formal qualification</span>
+              </div>
+              <div class="cv-role">
+                <div class="cv-role__header">
+                  <h3 class="cv-role__title">BTech, Marketing</h3>
+                  <span class="cv-role__dates">2004 — 2009</span>
+                </div>
+                <div class="cv-role__company">Nelson Mandela Metropolitan University</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Soft Skills — full width -->
+        <div class="cv-section" style="margin-top:8px;">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Soft Skills</span>
+            <span class="cv-section__title">People &amp; leadership</span>
+          </div>
+          <div class="cv-tags">
+            <span class="cv-tag">Strategic initiative development</span>
+            <span class="cv-tag">Risk anticipation &amp; mitigation</span>
+            <span class="cv-tag">Leading process improvement</span>
+            <span class="cv-tag">Mentoring &amp; enablement</span>
+            <span class="cv-tag">Cross-functional communication</span>
+            <span class="cv-tag">Change facilitation &amp; innovation</span>
+            <span class="cv-tag">Prioritisation for impact</span>
+          </div>
+        </div>
+
+        <!-- Skills — full width below the two columns -->
+        <div class="cv-section" style="margin-top:8px;">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Skills</span>
+            <span class="cv-section__title">Tools &amp; technologies</span>
+          </div>
+          <div class="cv-tags">
+            <span class="cv-tag">Google Apps Script</span>
+            <span class="cv-tag">SQL / MySQL</span>
+            <span class="cv-tag">Looker Studio</span>
+            <span class="cv-tag">Jira &amp; Tempo</span>
+            <span class="cv-tag">Google Sheets</span>
+            <span class="cv-tag">REST APIs</span>
+            <span class="cv-tag">Automation</span>
+            <span class="cv-tag">Data modelling</span>
+            <span class="cv-tag">Workflow design</span>
+            <span class="cv-tag">Process optimisation</span>
+            <span class="cv-tag">Problem solving</span>
+            <span class="cv-tag">Time &amp; cost tracking</span>
+            <span class="cv-tag">AI</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ────────────────────────────────────────────────
+           FULL VERSION — Complete CV
+      ──────────────────────────────────────────────────── -->
+      <div class="cv-view" id="view-full">
+
+        <!-- Profile -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Profile</span>
+            <span class="cv-section__title">Professional summary</span>
+          </div>
+          <div class="cv-profile">
+            <p>
+              By day I'm a Technical Solutions Manager; by night I'm the person who asks, "Why are we doing this manually again?"
+              I map the puzzle, reduce the noise, and teach the robots (SQL, Google Apps Script, Looker Studio, Jira/Tempo) to do
+              the boring bits so humans can do the important stuff — informed decision making.
+            </p>
+            <p>
+              I'm self-taught across most of what I do. No formal handovers, no playbooks — just curiosity, persistence, and a trail
+              of working systems. In more than a few cases I learned it, built it, and then taught the team. My current role didn't
+              exist; I made the case for it by showing exactly which data was missing, how to capture it, and how the right workflows
+              would turn it into decisions you can trust.
+            </p>
+            <p>
+              I design workflows and data models that make time and cost visible, reporting that runs itself, and SOPs that outlive
+              the meeting. I'm calm in a crisis, allergic to spreadsheet heroics, and happiest when a 45-minute job becomes a
+              45-second click. Based in Cape Town and remote-friendly — fewer fire drills and more signals and systems that quietly
+              do the right things.
+            </p>
+          </div>
+        </div>
+
+        <!-- Ethos -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Ethos</span>
+            <span class="cv-section__title">How I work</span>
+          </div>
+          <ul class="cv-role__bullets">
+            <li><strong>Automate first</strong> — If I do it twice, I script it. If it needs "just one more tweak", I build a pipeline.</li>
+            <li><strong>Self-taught, then shared</strong> — I learn fast, build clean, document the path and then teach others.</li>
+            <li><strong>Make it explainable</strong> — Clean structures, clear joins, obvious ownership, and plain-English docs.</li>
+            <li><strong>Design for audit</strong> — I log inputs/outputs, validate transformations, and version queries so numbers stand up to scrutiny.</li>
+            <li><strong>Calm beats clever</strong> — Stable, predictable delivery over fragile one-offs; reliability wins the week after launch.</li>
+            <li><strong>Impact first</strong> — Start at the bottleneck, fix the source of pain, and remove repeatable work to create lasting capacity.</li>
+          </ul>
+        </div>
+
+        <!-- AI Usage -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">AI</span>
+            <span class="cv-section__title">How I use AI</span>
+          </div>
+          <p class="cv-profile" style="margin-bottom:14px;">
+            I use AI as a research partner and code co-pilot — great for scaffolding, edge-case hunting, and first drafts.
+            I never share secrets (I redact or synthesise data) and I always verify with tests and human review before release.
+          </p>
+          <ul class="cv-role__bullets">
+            <li><strong>Brainstorm &amp; research</strong> — pressure-test ideas, surface counter-examples and edge cases, produce clear summaries for stakeholders</li>
+            <li><strong>Build faster</strong> — draft SQL and Google Apps Script snippets, scaffold data models, generate first-pass SOPs and technical notes which I then refine</li>
+            <li><strong>Improve accuracy</strong> — check logic, highlight inconsistencies across sources, and flag ambiguous metrics to reduce reporting risk</li>
+            <li><strong>Operate responsibly</strong> — redact or synthesise sensitive inputs, keep human review in the loop, treat AI output as a draft until validated</li>
+          </ul>
+        </div>
+
+        <!-- Experience — TSM -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Experience</span>
+            <span class="cv-section__title">EDGE Education — 9 years</span>
+          </div>
+          <div class="cv-roles">
+
+            <div class="cv-role">
+              <div class="cv-role__header">
+                <h3 class="cv-role__title">Technical Solutions Manager</h3>
+                <span class="cv-role__dates">05/2023 — Present</span>
+              </div>
+              <div class="cv-role__company">EDGE Education — Cape Town</div>
+              <ul class="cv-role__bullets">
+                <li>Led a cross-functional initiative to map, standardise, and instrument production processes across 7+ departments</li>
+                <li>Provided live portfolio visibility for the Project Management Office — tracking who is doing what and what is outstanding</li>
+                <li>Delivered granular cost analytics for Finance at both title and component levels</li>
+                <li>Redesigned client analytics delivery from inaccurate 2–5 hour manual process to fully automated accurate insights</li>
+                <li>Created a Google Sheets &amp; Apps Script system to mass-generate hundreds of structured Jira tickets in minutes</li>
+                <li>Designed and deployed a custom access-controlled coupon portal — faster fulfilment, audit-ready logs, no manual reconciliation</li>
+                <li>Served as first line for product issues, LTI integrations, platform configuration, and client onboarding</li>
+              </ul>
+            </div>
+
+            <div class="cv-role">
+              <div class="cv-role__header">
+                <h3 class="cv-role__title">Learning Technologist / Team Lead</h3>
+                <span class="cv-role__dates">07/2019 — 05/2023</span>
+              </div>
+              <div class="cv-role__company">EDGE Education — Cape Town</div>
+              <ul class="cv-role__bullets">
+                <li>Built and led a high-performing learning-technology team with daily briefs, clear SLAs, and regular recognition</li>
+                <li>Codified practices and ran skills-transfer sessions to eliminate single-point-of-failure risks</li>
+                <li>Served as first line for functional and technical queries; hosted a weekly team forum to align standards</li>
+                <li>Coordinated with Product, PMO, Instructional Designers, and QA to manage dependencies and surface risks early</li>
+                <li>Designed candidate tests, reviewed submissions, and administered a vetted freelancer bench</li>
+                <li>Oversaw quality and accessibility compliance for all releases</li>
+              </ul>
+            </div>
+
+            <div class="cv-role">
+              <div class="cv-role__header">
+                <h3 class="cv-role__title">Multimedia Designer</h3>
+                <span class="cv-role__dates">12/2018 — 07/2019</span>
+              </div>
+              <div class="cv-role__company">EDGE Education — Cape Town</div>
+              <p class="cv-role__blurb">
+                Owned end-to-end pipeline for interactive learning assets. Standardised voice-over workflow, delivered training in
+                Illustrator, After Effects, and Photoshop, and introduced shared templates that improved consistency and reduced rework.
+              </p>
+            </div>
+
+            <div class="cv-role">
+              <div class="cv-role__header">
+                <h3 class="cv-role__title">Instructional Design: Admin and Support</h3>
+                <span class="cv-role__dates">04/2017 — 12/2018</span>
+              </div>
+              <div class="cv-role__company">EDGE Education — Cape Town</div>
+              <p class="cv-role__blurb">
+                Central coordinator for content flow — briefing freelancers, tracking work-in-progress, and publishing courses in
+                Blackboard with careful attention to structure, accessibility, and consistency.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Highlights</span>
+            <span class="cv-section__title">Key achievements &amp; impact</span>
+          </div>
+
+          <div class="cv-achievement">
+            <div class="cv-achievement__title">Created a role by identifying a business need</div>
+            <p class="cv-achievement__text">Identified missing time/cost signals in production, then designed and implemented Jira workflows and reporting to turn these signals into actionable decisions.</p>
+            <div class="cv-impact">
+              <span class="cv-impact__pill">Impact</span>
+              <span class="cv-impact__text">Data-driven insights led to the recognition of a new role, validating its necessity for the business to strategically and efficiently plan, cost, and schedule.</span>
+            </div>
+          </div>
+
+          <div class="cv-achievement">
+            <div class="cv-achievement__title">Automated reporting suite</div>
+            <p class="cv-achievement__text">Replaced manual, multi-hour spreadsheet processes with automated scheduled reports for billing, performance, exec roll-ups, and exception flags.</p>
+            <div class="cv-impact">
+              <span class="cv-impact__pill">Impact</span>
+              <span class="cv-impact__text">20–30 hours saved per month across the business.</span>
+            </div>
+          </div>
+
+          <div class="cv-achievement">
+            <div class="cv-achievement__title">Process efficiency through templatisation</div>
+            <p class="cv-achievement__text">Standardised and templated the quiz creation process to reduce setup time in Storyline from 15–25 minutes to under 5 minutes per quiz.</p>
+            <div class="cv-impact">
+              <span class="cv-impact__pill">Impact</span>
+              <span class="cv-impact__text">Approximately 70% savings in cost/time with freed up production capacity for complex tasks.</span>
+            </div>
+          </div>
+
+          <div class="cv-achievement">
+            <div class="cv-achievement__title">Mass Jira ticket generation</div>
+            <p class="cv-achievement__text">Automated large batches of Jira ticket creation to ensure correct structure and appropriate epics, sub-tasks, and dependencies in a single operation.</p>
+            <div class="cv-impact">
+              <span class="cv-impact__pill">Impact</span>
+              <span class="cv-impact__text">1,300+ tickets created in minutes instead of days. Single runs generate up to 130+ tickets.</span>
+            </div>
+          </div>
+
+          <div class="cv-achievement">
+            <div class="cv-achievement__title">Custom &amp; automated client analytics</div>
+            <p class="cv-achievement__text">Developed automated solutions for client-specific metrics — course engagement, quiz outcomes, progression — eliminating manual dashboard creation.</p>
+            <div class="cv-impact">
+              <span class="cv-impact__pill">Impact</span>
+              <span class="cv-impact__text">Delivered bespoke dashboards faster, improved client satisfaction, and saved 2–5 hours per report.</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Competencies -->
+        <div class="cv-section">
+          <div class="cv-section__header">
+            <span class="cv-section__badge">Competencies</span>
+            <span class="cv-section__title">Skills &amp; tools</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9BA3BB;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Core</div>
+              <div class="cv-tags">
+                <span class="cv-tag">Automation &amp; workflow design</span>
+                <span class="cv-tag">Data reporting &amp; visualisation</span>
+                <span class="cv-tag">Stakeholder collaboration</span>
+                <span class="cv-tag">Problem identification &amp; gap analysis</span>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9BA3BB;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Tools</div>
+              <div class="cv-tags">
+                <span class="cv-tag">Google Apps Script</span>
+                <span class="cv-tag">SQL / MySQL</span>
+                <span class="cv-tag">Looker Studio</span>
+                <span class="cv-tag">Jira &amp; Tempo</span>
+                <span class="cv-tag">Google Sheets</span>
+                <span class="cv-tag">REST APIs</span>
+                <span class="cv-tag">Moodle</span>
+                <span class="cv-tag">Storyline</span>
+                <span class="cv-tag">H5P</span>
+              </div>
+            </div>
+
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#9BA3BB;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Leadership</div>
+              <div class="cv-tags">
+                <span class="cv-tag">Cross-functional communication</span>
+                <span class="cv-tag">Mentoring &amp; enablement</span>
+                <span class="cv-tag">Strategic initiative development</span>
+                <span class="cv-tag">Risk anticipation &amp; mitigation</span>
+                <span class="cv-tag">Change facilitation</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Education + Personal side by side -->
+        <div class="cv-grid">
+
+          <div class="cv-section">
+            <div class="cv-section__header">
+              <span class="cv-section__badge">Education</span>
+              <span class="cv-section__title">Formal qualification</span>
+            </div>
+            <div class="cv-role">
+              <div class="cv-role__header">
+                <h3 class="cv-role__title">BTech, Marketing</h3>
+                <span class="cv-role__dates">2004 — 2009</span>
+              </div>
+              <div class="cv-role__company">Nelson Mandela Metropolitan University</div>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section__header">
+              <span class="cv-section__badge">Personal</span>
+              <span class="cv-section__title">Additional information</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+              <div class="cv-role">
+                <div class="cv-role__header"><h3 class="cv-role__title">Nationality</h3></div>
+                <div class="cv-role__company">South African</div>
+              </div>
+              <div class="cv-role">
+                <div class="cv-role__header"><h3 class="cv-role__title">Languages</h3></div>
+                <div class="cv-role__company">Afrikaans &amp; English</div>
+              </div>
+              <div class="cv-role">
+                <div class="cv-role__header"><h3 class="cv-role__title">Driver's License</h3></div>
+                <div class="cv-role__company">Yes</div>
+              </div>
+              <div class="cv-role">
+                <div class="cv-role__header"><h3 class="cv-role__title">References</h3></div>
+                <div class="cv-role__company">Available on request</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- end full view -->
+
+    </div>
+    <!-- end cv-content -->
+
+    <!-- FOOTER -->
+    <footer style="border-top:1px solid rgba(255,255,255,0.05);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;background:#06090f;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.08em;">
+        &copy; <span id="year"></span> <span style="color:rgba(20,184,166,0.6);">Le Clue Leach</span>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul style="display:flex;gap:24px;list-style:none;">
+          <li><a href="../index.html"    style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Home</a></li>
+          <li><a href="./portfolio.html" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Portfolio</a></li>
+          <li><a href="./contact.html"   style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;">Contact</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+  </div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="../assets/js/supabase.js" defer></script>
+  <script src="../assets/js/nav.js" defer></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ── NAV SCROLL ─────────────────────────────────────── */
+    const nav = document.getElementById('mainNav');
+    const btt = document.getElementById('backToTop');
+    const toggleWrap = document.querySelector('.cv-toggle-wrap');
+
+    function updateTabTop() {
+      if (toggleWrap) toggleWrap.style.top = nav.offsetHeight + 'px';
+    }
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      btt.classList.toggle('visible', window.scrollY > 400);
+      updateTabTop();
+    }, { passive: true });
+
+    updateTabTop();
+
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── TOGGLE VIEW ────────────────────────────────────── */
+    function switchView(view) {
+      document.querySelectorAll('.cv-view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.cv-toggle__btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      document.getElementById('view-' + view).classList.add('active');
+      const btn = document.querySelector('[data-view="' + view + '"]');
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+
+    /* ── DOWNLOAD / PRINT ───────────────────────────────── */
+    function downloadCV() {
+      // Log to Supabase
+      if(window.LC && window.LC.logCvDownload) {
+        window.LC.logCvDownload();
+      }
+      // Trigger browser print dialog — save as PDF
+      window.print();
+    }
+  </script>
+
+</body>
+</html>

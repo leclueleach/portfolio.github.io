@@ -1,0 +1,559 @@
+/* ============================================================
+   COMPONENTS.CSS — Le Clue Portfolio
+   All reusable UI patterns. Build once, use everywhere.
+   Depends on tokens.css and base.css being loaded first.
+   ============================================================ */
+
+
+/* ==========================================================
+   BUTTONS
+   Three variants: primary, secondary, ghost
+   Consistent sizing, hover, and active states.
+========================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Primary — filled teal */
+.btn--primary {
+  background: var(--teal-500);
+  color: #ffffff;
+  border-color: var(--teal-500);
+}
+
+.btn--primary:hover {
+  background: var(--teal-400);
+  border-color: var(--teal-400);
+  color: #ffffff;
+}
+
+/* Secondary — subtle dark card */
+.btn--secondary {
+  background: var(--dark-card);
+  color: var(--text-dark-primary);
+  border-color: var(--dark-border);
+}
+
+.btn--secondary:hover {
+  border-color: var(--teal-500);
+  color: var(--teal-400);
+}
+
+/* Ghost — transparent with teal border */
+.btn--ghost {
+  background: transparent;
+  color: var(--teal-400);
+  border-color: var(--teal-border);
+}
+
+.btn--ghost:hover {
+  background: var(--teal-glow);
+}
+
+/* Rust variant — for alerts or featured actions */
+.btn--rust {
+  background: var(--rust-500);
+  color: #ffffff;
+  border-color: var(--rust-500);
+}
+
+.btn--rust:hover {
+  background: var(--rust-400);
+  border-color: var(--rust-400);
+  color: #ffffff;
+}
+
+/* Size modifiers */
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+}
+
+.btn--lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-base);
+}
+
+/* Light surface overrides */
+.surface-light .btn--secondary {
+  background: var(--light-card);
+  color: var(--text-light-primary);
+  border-color: var(--light-border);
+}
+
+.surface-light .btn--secondary:hover {
+  border-color: var(--teal-500);
+  color: var(--teal-600);
+}
+
+
+/* ==========================================================
+   CARDS
+   Base card, dark and light variants, hover state.
+========================================================== */
+
+.card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--dark-border);
+  background: var(--dark-card);
+  padding: var(--space-6);
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--teal-500);
+}
+
+.card--interactive {
+  cursor: pointer;
+}
+
+.card--interactive:hover {
+  transform: translateY(-2px);
+}
+
+/* Light surface card */
+.surface-light .card {
+  background: var(--light-surface);
+  border-color: var(--light-border);
+}
+
+.surface-light .card:hover {
+  border-color: var(--teal-500);
+}
+
+/* Accent top border variants */
+.card--teal {
+  border-top: 3px solid var(--teal-500);
+}
+
+.card--rust {
+  border-top: 3px solid var(--rust-500);
+}
+
+
+/* ==========================================================
+   TAGS & BADGES
+   Small labelling elements for categories, status, tech stack
+========================================================== */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  white-space: nowrap;
+}
+
+.tag--teal {
+  background: var(--teal-glow);
+  color: var(--teal-400);
+  border: 1px solid var(--teal-border);
+}
+
+.tag--rust {
+  background: var(--rust-glow);
+  color: var(--rust-400);
+  border: 1px solid var(--rust-border);
+}
+
+.tag--neutral {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dark-secondary);
+  border: 1px solid var(--dark-border);
+}
+
+.surface-light .tag--neutral {
+  background: var(--light-card);
+  color: var(--text-light-secondary);
+  border-color: var(--light-border);
+}
+
+
+/* ==========================================================
+   KPI / STAT CARDS
+   Data metric tiles used in demo previews and dashboards
+========================================================== */
+
+.kpi {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+}
+
+.kpi__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--text-dark-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-bottom: var(--space-2);
+}
+
+.kpi__value {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-dark-primary);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.kpi__delta {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+}
+
+.kpi__delta--up   { color: var(--teal-400); }
+.kpi__delta--down { color: var(--rust-400); }
+
+
+/* ==========================================================
+   DEMO PORTFOLIO CARDS
+   Cards on the portfolio page — thumbnail, title, tags, CTA
+========================================================== */
+
+.demo-card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+.demo-card:hover {
+  border-color: var(--teal-500);
+  transform: translateY(-3px);
+}
+
+.demo-card__thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--dark-surface);
+  overflow: hidden;
+  position: relative;
+}
+
+.demo-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.demo-card:hover .demo-card__thumb img {
+  transform: scale(1.03);
+}
+
+.demo-card__body {
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.demo-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--text-dark-primary);
+  line-height: var(--leading-snug);
+}
+
+.demo-card__desc {
+  font-size: var(--text-sm);
+  color: var(--text-dark-secondary);
+  line-height: var(--leading-relaxed);
+  flex: 1;
+}
+
+.demo-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.demo-card__footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--dark-border);
+}
+
+
+/* ==========================================================
+   TABS
+   Used inside pages for switching content panels
+========================================================== */
+
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--dark-border);
+  margin-bottom: var(--space-6);
+}
+
+.surface-light .tabs {
+  border-bottom-color: var(--light-border);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-dark-secondary);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.tab:hover {
+  color: var(--teal-400);
+}
+
+.tab.active {
+  color: var(--teal-400);
+  border-bottom-color: var(--teal-500);
+}
+
+.surface-light .tab {
+  color: var(--text-light-secondary);
+}
+
+.surface-light .tab:hover {
+  color: var(--teal-600);
+}
+
+.surface-light .tab.active {
+  color: var(--teal-600);
+  border-bottom-color: var(--teal-600);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+
+/* ==========================================================
+   FORM ELEMENTS
+   Contact form inputs, textarea, labels
+========================================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.form-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-dark-secondary);
+}
+
+.surface-light .form-label {
+  color: var(--text-light-secondary);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--dark-surface);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-md);
+  color: var(--text-dark-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--teal-500);
+  background: var(--dark-card);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-dark-muted);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.surface-light .form-input,
+.surface-light .form-textarea {
+  background: var(--light-surface);
+  border-color: var(--light-border);
+  color: var(--text-light-primary);
+}
+
+.surface-light .form-input:focus,
+.surface-light .form-textarea:focus {
+  border-color: var(--teal-500);
+  background: var(--light-card);
+}
+
+.surface-light .form-input::placeholder,
+.surface-light .form-textarea::placeholder {
+  color: var(--text-light-muted);
+}
+
+
+/* ==========================================================
+   PORTFOLIO GRID
+   Dynamic grid — cards reflow as more demos are added.
+   No fixed column count — auto-fit handles it.
+========================================================== */
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+
+/* ==========================================================
+   AVAILABILITY INDICATOR
+   Small status pill — shown in nav or contact page
+========================================================== */
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: rgba(45, 212, 191, 0.08);
+  border: 1px solid var(--teal-border);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--teal-400);
+  letter-spacing: var(--tracking-wide);
+}
+
+.availability__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--teal-400);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+
+/* ==========================================================
+   BACK TO TOP BUTTON
+   Drop <button class="back-to-top" id="backToTop"> anywhere
+   in the body. JS in each page handles show/hide on scroll.
+========================================================== */
+
+.back-to-top {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  z-index: var(--z-raised);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: rgba(20,184,166,0.9);
+  border: 1px solid rgba(20,184,166,0.5);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(20,184,166,0.25);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base),
+    background var(--transition-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.back-to-top:hover {
+  background: #0D9488;
+  box-shadow: 0 6px 24px rgba(20,184,166,0.4);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .back-to-top {
+    bottom: 24px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get in touch with Le Clue Leach — Data & BI Specialist, Cape Town.">
+  <title>Le Clue — Contact</title>
+
+  <link rel="icon" href="../assets/img/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/nav.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/page-hero.css">
+  <link rel="stylesheet" href="./contact.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav nav--solid" id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="../index.html" class="nav__logo" aria-label="Le Clue — home">
+      <div class="nav__logo-mark" aria-hidden="true">LC</div>
+      <span class="nav__logo-name">Le Clue</span>
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="../index.html"    class="nav__link">Home</a></li>
+      <li><a href="./about.html"    class="nav__link">About</a></li>
+      <li><a href="./portfolio.html" class="nav__link">Portfolio</a></li>
+      <li><a href="./cv.html"       class="nav__link">CV</a></li>
+      <li><a href="./qa.html"       class="nav__link">Q&amp;A</a></li>
+      <li><a href="./contact.html"  class="nav__link active" aria-current="page">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="contact-page">
+
+    <!-- ══════════════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════════════════ -->
+    <div class="contact-hero page-hero" style="background-image:url('../assets/img/hero-contact.png');background-size:cover;background-position:center 25%;">
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="contact-hero__glow" aria-hidden="true"></div>
+      <div class="contact-hero__inner">
+        <div class="contact-hero__eyebrow">Get in touch</div>
+        <h1 class="contact-hero__heading">
+          Let's build something<br>worth looking at.
+        </h1>
+        <p class="contact-hero__sub">
+          Whether you have a role in mind or just want to see what's possible —
+          I'd love to hear from you.
+        </p>
+      </div>
+    </div>
+
+    <hr class="contact-divider">
+
+    <!-- ══════════════════════════════════════════════════
+         CONTENT — Details + Form
+    ══════════════════════════════════════════════════════ -->
+    <div class="contact-content">
+      <div class="contact-inner">
+
+        <!-- ── DETAILS ───────────────────────────────── -->
+        <div>
+          <h2 class="contact-details__heading">Contact details</h2>
+          <p class="contact-details__sub">
+            Prefer to reach out directly? All the ways to find me are below.
+            I typically respond within one business day.
+          </p>
+
+          <div class="contact-items">
+
+            <a href="mailto:lecluesemail@gmail.com" class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">✉️</div>
+              <div class="contact-item__info">
+                <div class="contact-item__label">Email</div>
+                <div class="contact-item__value">lecluesemail@gmail.com</div>
+              </div>
+              <span class="contact-item__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a href="https://linkedin.com/in/le-clue-leach"
+               target="_blank" rel="noopener noreferrer"
+               class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">💼</div>
+              <div class="contact-item__info">
+                <div class="contact-item__label">LinkedIn</div>
+                <div class="contact-item__value">linkedin.com/in/le-clue-leach</div>
+              </div>
+              <span class="contact-item__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a href="tel:+27794193415" class="contact-item">
+              <div class="contact-item__icon" aria-hidden="true">📞</div>
+              <div class="contact-item__info">
+                <div class="contact-item__label">Phone</div>
+                <div class="contact-item__value">+27 79 419 3415</div>
+              </div>
+              <span class="contact-item__arrow" aria-hidden="true">→</span>
+            </a>
+
+            <div class="contact-item contact-item--static">
+              <div class="contact-item__icon" aria-hidden="true">📍</div>
+              <div class="contact-item__info">
+                <div class="contact-item__label">Location</div>
+                <div class="contact-item__value">Langeberg Ridge, Cape Town</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="contact-avail" role="status">
+            <div class="contact-avail__dot" aria-hidden="true"></div>
+            <span class="contact-avail__text">Open to remote opportunities</span>
+          </div>
+        </div>
+
+        <!-- ── FORM ──────────────────────────────────── -->
+        <div class="contact-form-wrap">
+          <h2 class="contact-form__heading">Send a message</h2>
+          <p class="contact-form__sub">
+            Fill in the form and I'll get back to you as soon as possible.
+          </p>
+
+          <form id="contactForm" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="contactName">Name</label>
+                <input
+                  class="form-input"
+                  id="contactName"
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                  autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Email</label>
+                <input
+                  class="form-input"
+                  id="contactEmail"
+                  name="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  required
+                  autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactSubject">Subject</label>
+              <input
+                class="form-input"
+                id="contactSubject"
+                name="subject"
+                type="text"
+                placeholder="What's this about?">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMessage">Message</label>
+              <textarea
+                class="form-textarea"
+                id="contactMessage"
+                name="message"
+                placeholder="Tell me about the role, project, or opportunity..."
+                required></textarea>
+            </div>
+
+            <button class="form-submit" type="submit" id="formSubmit">
+              Send message →
+            </button>
+
+            <p class="form-feedback" id="formFeedback" aria-live="polite"></p>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── FOOTER ──────────────────────────────────────── -->
+    <footer class="contact-footer" role="contentinfo">
+      <div class="contact-footer__copy">
+        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from scratch, Cape Town.
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="contact-footer__links">
+          <li><a href="../index.html"    class="contact-footer__link">Home</a></li>
+          <li><a href="./portfolio.html" class="contact-footer__link">Portfolio</a></li>
+          <li><a href="./cv.html"       class="contact-footer__link">CV</a></li>
+          <li><a href="./qa.html"       class="contact-footer__link">Q&amp;A</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+  </div>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <script src="../assets/js/supabase.js" defer></script>
+  <script src="../assets/js/nav.js" defer></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ── NAV + BACK TO TOP ──────────────────────────────── */
+    const nav = document.getElementById('mainNav');
+    const btt = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      btt.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── CONTACT FORM ───────────────────────────────────── */
+    const form      = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('formSubmit');
+    const feedback  = document.getElementById('formFeedback');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name    = document.getElementById('contactName').value.trim();
+      const email   = document.getElementById('contactEmail').value.trim();
+      const subject = document.getElementById('contactSubject').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !email || !message) {
+        feedback.textContent = 'Please fill in your name, email and message.';
+        feedback.style.color = '#F97316';
+        return;
+      }
+
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Sending...';
+      feedback.textContent  = '';
+
+      const fullMessage = subject ? `[${subject}] ${message}` : message;
+
+      const ok = window.LC?.submitContact
+        ? await window.LC.submitContact({ name, email, message: fullMessage })
+        : false;
+
+      submitBtn.disabled    = false;
+      submitBtn.textContent = 'Send message →';
+
+      if (ok) {
+        feedback.textContent = "Message sent — I'll be in touch soon.";
+        feedback.style.color = '#14B8A6';
+        form.reset();
+      } else {
+        feedback.textContent = 'Something went wrong. Please email me directly at lecluesemail@gmail.com';
+        feedback.style.color = '#F97316';
+      }
+    });
+  </script>
+
+</body>
+</html>
