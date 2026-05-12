@@ -86,13 +86,14 @@ async function logDemoView(demoName) {
    Table: cv_downloads
    Columns: id, downloaded_at, referrer, user_agent
 ---------------------------------------------------------- */
-async function logCvDownload() {
+async function logCvDownload(documentName) {
   const client = getClient();
   if (!client) return;
 
   const { error } = await client
     .from('cv_downloads')
     .insert([{
+      document_name: documentName || 'unknown',
       ...getMeta(),
     }]);
 
