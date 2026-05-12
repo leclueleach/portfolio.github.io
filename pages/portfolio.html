@@ -238,8 +238,11 @@
 
     // Demo launch tracking
     document.querySelectorAll('.launch-demo').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (window.LC?.logDemoView) window.LC.logDemoView(btn.dataset.demo);
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = btn.getAttribute('href') || btn.dataset.url;
+        if (window.LC?.logDemoView) await window.LC.logDemoView(btn.dataset.demo);
+        window.open(url, '_blank', 'noopener,noreferrer');
       });
     });
 
