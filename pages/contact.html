@@ -19,6 +19,10 @@
   <link rel="stylesheet" href="../assets/css/page-hero.css">
   <link rel="stylesheet" href="./contact.css">
 
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('5xlblJpmbNljZXYBH');</script>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
@@ -269,17 +273,33 @@
 
       const fullMessage = subject ? `[${subject}] ${message}` : message;
 
-      const ok = window.LC?.submitContact
-        ? await window.LC.submitContact({ name, email, message: fullMessage })
-        : false;
+      // Send via EmailJS
+      let emailOk = false;
+      try {
+        await emailjs.send('service_4ydsugc', 'template_5dod4dh', {
+          from_name:  name,
+          from_email: email,
+          subject:    subject || '(no subject)',
+          message:    fullMessage,
+        });
+        emailOk = true;
+      } catch (err) {
+        console.warn('[LC] EmailJS error:', err);
+      }
+
+      // Log to Supabase
+      if (window.LC?.submitContact) {
+        await window.LC.submitContact({ name, email, message: fullMessage });
+      }
 
       submitBtn.disabled    = false;
       submitBtn.textContent = 'Send message →';
 
-      if (ok) {
+      if (emailOk) {
         feedback.textContent = "Message sent — I'll be in touch soon.";
         feedback.style.color = '#14B8A6';
         form.reset();
+        submitBtn.disabled = true;
       } else {
         feedback.textContent = 'Something went wrong. Please email me directly at lecluesemail@gmail.com';
         feedback.style.color = '#F97316';
