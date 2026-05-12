@@ -104,31 +104,11 @@ function initTabs() {
 
 /* ----------------------------------------------------------
    DEMO CARD LAUNCH
-   Wires up "Launch Demo" buttons on the portfolio page.
-   Logs the view to Supabase then opens the demo in a new tab.
-
-   HTML expected:
-   <button class="btn btn--primary launch-demo" data-demo="vaultic" data-url="https://...">
-     Launch Demo
-   </button>
+   Handled per-page in each HTML file's script block.
+   Kept here as a no-op to avoid breaking any references.
 ---------------------------------------------------------- */
 function initDemoLaunchers() {
-  const launchers = document.querySelectorAll('.launch-demo');
-
-  launchers.forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const demoName = btn.dataset.demo;
-      const demoUrl  = btn.dataset.url;
-
-      if (demoName && window.LC?.logDemoView) {
-        await window.LC.logDemoView(demoName);
-      }
-
-      if (demoUrl) {
-        window.open(demoUrl, '_blank', 'noopener,noreferrer');
-      }
-    });
-  });
+  // Handled in page-level scripts to avoid double-firing
 }
 
 /* ----------------------------------------------------------
