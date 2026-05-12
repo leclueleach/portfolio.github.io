@@ -14,8 +14,8 @@
 /* ----------------------------------------------------------
    CONFIG — replace these two values before going live
 ---------------------------------------------------------- */
-const SUPABASE_URL  = 'YOUR_SUPABASE_PROJECT_URL';
-const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';
+const SUPABASE_URL  = 'https://mmvwiopsxawckcbuebfk.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1tdndpb3BzeGF3Y2tjYnVlYmZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTkzMDUsImV4cCI6MjA5NDE3NTMwNX0.YAZJMGFNTFh9tf4JUyEmWxKKW_OLjvxdycdcGhoM1Lk';
 
 /* ----------------------------------------------------------
    CLIENT INIT
