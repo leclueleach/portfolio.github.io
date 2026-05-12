@@ -292,6 +292,16 @@
   <script>
   (function(){
 
+    /* ── DEMO LAUNCH TRACKING ─────────────────────────── */
+    document.querySelectorAll('.launch-demo').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = btn.getAttribute('href') || btn.dataset.url;
+        if (window.LC?.logDemoView) await window.LC.logDemoView(btn.dataset.demo);
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+    });
+
     /* ── YEAR ─────────────────────────────────────────── */
     document.getElementById('year').textContent = new Date().getFullYear();
 
