@@ -535,6 +535,9 @@ body {
     flex-shrink: 0;
   }
 
+  /* Hide the long part of tab labels on mobile */
+  .cv-btn-label { display: none; }
+
   /* Content padding */
   .cv-view { padding: 24px 20px 48px; }
 
