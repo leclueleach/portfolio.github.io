@@ -34,6 +34,19 @@
     </ul>
   </nav>
 
+  <!-- Mobile overlay -->
+  <div class="nav__overlay" id="navOverlay">
+    <button class="nav__overlay-close" id="navOverlayClose">&times;</button>
+    <ul class="nav__overlay-links">
+      <li><a href="../index.html" class="nav__overlay-link">Home</a></li>
+      <li><a href="./about.html" class="nav__overlay-link">About</a></li>
+      <li><a href="./portfolio.html" class="nav__overlay-link">Portfolio</a></li>
+      <li><a href="./cv.html" class="nav__overlay-link">CV</a></li>
+      <li><a href="./qa.html" class="nav__overlay-link">Q&amp;A</a></li>
+      <li><a href="./contact.html" class="nav__overlay-link">Contact</a></li>
+    </ul>
+  </div>
+
   <div class="portfolio-page">
 
     <!-- HERO -->
@@ -260,6 +273,30 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── HAMBURGER MENU ─────────────────────────────────── */
+    const hamburger = document.querySelector('.nav__hamburger');
+    const overlay   = document.querySelector('.nav__overlay');
+
+    if (hamburger && overlay) {
+      function openMenu() {
+        hamburger.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        hamburger.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.contains('open') ? closeMenu() : openMenu();
+      });
+      overlay.querySelectorAll('.nav__overlay-link').forEach(l => l.addEventListener('click', closeMenu));
+      const closeBtn = overlay.querySelector('.nav__overlay-close');
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+    }
   </script>
 
 </body>
