@@ -1,225 +1,247 @@
 /* ============================================================
-   NAV.CSS — Le Clue Portfolio
-   Desktop: transparent nav with pill links
-   Mobile: hamburger icon + full screen overlay menu
+   NAV.JS — Le Clue Portfolio
+   Handles three things:
+   1. Active nav link — highlights current page
+   2. Slim nav — shrinks nav on scroll
+   3. Tab switching — shared logic for tabbed pages
    ============================================================ */
 
-/* ── NAV CONTAINER ───────────────────────────────────────── */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: var(--z-nav);
-  height: var(--nav-height);
-  display: flex;
-  align-items: center;
-  padding: 0 48px;
-  background: transparent;
-  transition:
-    height 0.35s ease,
-    background 0.35s ease,
-    backdrop-filter 0.35s ease,
-    border-color 0.35s ease;
+/* ----------------------------------------------------------
+   1. ACTIVE NAV LINK
+   Compares each link's href to the current page URL and
+   applies the active class + aria-current to the match.
+   Handles both root (index.html) and pages/ subdirectory.
+---------------------------------------------------------- */
+function setActiveLink() {
+  const links = document.querySelectorAll('.nav__link');
+  const current = window.location.pathname;
+
+  links.forEach(link => {
+    const href = new URL(link.href).pathname;
+
+    const isHome = (href === '/' || href.endsWith('index.html'))
+                && (current === '/' || current.endsWith('index.html') || current === '');
+
+    const isMatch = !isHome && href !== '/' && current.endsWith(href.split('/').pop());
+
+    if (isHome || isMatch) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
+    }
+  });
 }
 
-.nav.scrolled,
-.nav--slim {
-  height: var(--nav-height-slim);
-  background: rgba(6,9,20,0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+/* ----------------------------------------------------------
+   2. SLIM NAV ON SCROLL
+   Adds .nav--slim to the nav element once the user scrolls
+   past 20px. Removes it when back at the top.
+   Only applies on pages where scrolling is possible.
+---------------------------------------------------------- */
+function initSlimNav() {
+  const nav = document.querySelector('.nav');
+  if (!nav) return;
+
+  let ticking = false;
+
+  function updateNav() {
+    const scrolled = window.scrollY > 40;
+    nav.classList.toggle('scrolled', scrolled);
+    nav.classList.toggle('nav--slim', scrolled);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateNav);
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
-.nav--solid {
-  background: rgba(6,9,20,0.96);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+/* ----------------------------------------------------------
+   3. TAB SWITCHING
+   Generic tab system used on About, Q&A, and CV pages.
+   Looks for .tabs containers and wires up click handlers.
+
+   HTML structure expected:
+   <div class="tabs">
+     <button class="tab active" data-tab="panel-one">Label</button>
+     <button class="tab" data-tab="panel-two">Label</button>
+   </div>
+   <div class="tab-panel active" id="panel-one">...</div>
+   <div class="tab-panel" id="panel-two">...</div>
+---------------------------------------------------------- */
+function initTabs() {
+  const tabGroups = document.querySelectorAll('.tabs');
+
+  tabGroups.forEach(group => {
+    const tabs = group.querySelectorAll('.tab');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.tab;
+        if (!targetId) return;
+
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const allPanels = document.querySelectorAll('.tab-panel');
+        allPanels.forEach(panel => {
+          panel.classList.toggle('active', panel.id === targetId);
+        });
+      });
+    });
+  });
 }
 
-/* ── LOGO ────────────────────────────────────────────────── */
-.nav__logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex-shrink: 0;
+/* ----------------------------------------------------------
+   DEMO CARD LAUNCH
+   Handled per-page in each HTML file's script block.
+   Kept here as a no-op to avoid breaking any references.
+---------------------------------------------------------- */
+function initDemoLaunchers() {
+  // Handled in page-level scripts to avoid double-firing
 }
 
-.nav__logo-mark {
-  width: 32px; height: 32px;
-  background: rgba(20,184,166,0.9);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #fff;
-  letter-spacing: -0.02em;
-  flex-shrink: 0;
-  transition: background 0.2s;
+/* ----------------------------------------------------------
+   CV DOWNLOAD TRACKING
+   Wires up the CV download button to log before downloading.
+
+   HTML expected:
+   <a class="btn btn--primary cv-download" href="./assets/files/leclue-cv.pdf" download>
+     Download CV
+   </a>
+---------------------------------------------------------- */
+function initCvDownload() {
+  const downloadBtn = document.querySelector('.cv-download');
+  if (!downloadBtn) return;
+
+  downloadBtn.addEventListener('click', () => {
+    if (window.LC?.logCvDownload) {
+      window.LC.logCvDownload();
+    }
+  });
 }
 
-.nav__logo:hover .nav__logo-mark { background: #2DD4BF; }
+/* ----------------------------------------------------------
+   CONTACT FORM
+   Wires up the contact form to submitContact().
+   Shows inline success/error feedback without page reload.
 
-.nav__logo-name {
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.88);
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
+   HTML expected:
+   <form class="contact-form" novalidate>
+     <input class="form-input" name="name" type="text" required>
+     <input class="form-input" name="email" type="email" required>
+     <textarea class="form-textarea" name="message" required></textarea>
+     <button class="btn btn--primary" type="submit">Send message</button>
+     <p class="form-feedback" aria-live="polite"></p>
+   </form>
+---------------------------------------------------------- */
+function initContactForm() {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+
+  const feedback = form.querySelector('.form-feedback');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const name    = form.querySelector('[name="name"]')?.value.trim();
+    const email   = form.querySelector('[name="email"]')?.value.trim();
+    const message = form.querySelector('[name="message"]')?.value.trim();
+
+    if (!name || !email || !message) {
+      if (feedback) {
+        feedback.textContent = 'Please fill in all fields.';
+        feedback.style.color = 'var(--rust-400)';
+      }
+      return;
+    }
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+    }
+
+    const ok = await window.LC?.submitContact({ name, email, message });
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send message';
+    }
+
+    if (feedback) {
+      if (ok) {
+        feedback.textContent = 'Message sent — I\'ll be in touch soon.';
+        feedback.style.color = 'var(--teal-400)';
+        form.reset();
+      } else {
+        feedback.textContent = 'Something went wrong. Please try again or email me directly.';
+        feedback.style.color = 'var(--rust-400)';
+      }
+    }
+  });
 }
 
-.nav__logo:hover .nav__logo-name { color: #fff; }
+/* ----------------------------------------------------------
+   HAMBURGER MENU
+   Toggles mobile overlay on hamburger click.
+   Closes on overlay link click or close button.
+---------------------------------------------------------- */
+function initHamburger() {
+  const hamburger = document.querySelector('.nav__hamburger');
+  const overlay   = document.querySelector('.nav__overlay');
+  if (!hamburger || !overlay) return;
 
-/* ── DESKTOP NAV LINKS ───────────────────────────────────── */
-.nav__links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  list-style: none;
-  margin-left: auto;
+  function openMenu() {
+    hamburger.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Close on overlay link click
+  overlay.querySelectorAll('.nav__overlay-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close button
+  const closeBtn = overlay.querySelector('.nav__overlay-close');
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  // Close on escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
 }
 
-.nav__link {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 14px;
-  border-radius: 100px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.42);
-  text-decoration: none;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  border: 1px solid transparent;
-  transition: color 0.25s, background 0.25s, border-color 0.25s;
-}
-
-.nav__link:hover { color: rgba(255,255,255,0.88); }
-
-.nav__link.active,
-.nav__link[aria-current="page"] {
-  color: rgba(255,255,255,0.88);
-  background: rgba(20,184,166,0.12);
-  border-color: rgba(20,184,166,0.3);
-}
-
-/* ── HAMBURGER BUTTON ────────────────────────────────────── */
-.nav__hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 36px; height: 36px;
-  margin-left: auto;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  z-index: calc(var(--z-nav) + 2);
-}
-
-.nav__hamburger span {
-  display: block;
-  width: 22px; height: 2px;
-  background: rgba(255,255,255,0.8);
-  border-radius: 2px;
-  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
-  transform-origin: center;
-}
-
-/* Animate to X when open */
-.nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav__hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
-.nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* ── MOBILE OVERLAY ──────────────────────────────────────── */
-.nav__overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(6,9,20,0.97);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  z-index: calc(var(--z-nav) + 1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.nav__overlay.open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
-}
-
-.nav__overlay-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 0 40px;
-}
-
-.nav__overlay-link {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.5);
-  text-decoration: none;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
-}
-
-.nav__overlay-link:hover,
-.nav__overlay-link.active,
-.nav__overlay-link[aria-current="page"] {
-  color: #2DD4BF;
-  background: rgba(20,184,166,0.08);
-  border-color: rgba(20,184,166,0.2);
-}
-
-.nav__overlay-close {
-  position: absolute;
-  top: 20px; right: 20px;
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.4);
-  font-size: 28px;
-  cursor: pointer;
-  line-height: 1;
-  padding: 8px;
-  transition: color 0.2s;
-}
-
-.nav__overlay-close:hover { color: #fff; }
-
-/* ── RESPONSIVE ──────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .nav { padding: 0 24px; }
-}
-
-@media (max-width: 768px) {
-  /* Hide desktop links, show hamburger */
-  .nav__links { display: none; }
-  .nav__hamburger { display: flex; }
-  .nav__overlay { display: flex; }
-}
+/* ----------------------------------------------------------
+   INIT — runs everything on DOMContentLoaded
+---------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  setActiveLink();
+  initSlimNav();
+  initTabs();
+  initDemoLaunchers();
+  initCvDownload();
+  initContactForm();
+  initHamburger();
+});
