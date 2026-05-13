@@ -490,14 +490,75 @@ body {
 @media (max-width: 900px) {
   .cv-hero { padding: 48px 24px 40px; }
   .cv-hero__inner { grid-template-columns: 1fr; }
-  .cv-hero__actions { align-items: flex-start; flex-direction: row; }
-  .cv-toggle-wrap { padding: 16px 24px; }
+  .cv-hero__actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+  .cv-toggle-wrap { padding: 0 24px; }
   .cv-view { padding: 32px 24px 60px; }
   .cv-grid { grid-template-columns: 1fr; }
   .cv-stats { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 600px) {
+  /* Hero — stack everything cleanly */
+  .cv-hero { padding: 32px 20px 28px; }
+  .cv-hero__inner { grid-template-columns: 1fr; gap: 24px; }
+
+  /* Hide location/email in hero on mobile — too cramped */
+  .cv-hero__actions > div:last-child { display: none; }
+
+  /* Download buttons — full width stacked */
+  .cv-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .cv-download-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 12px;
+  }
+
+  /* Sticky tab bar — scrollable on mobile */
+  .cv-toggle-wrap {
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cv-toggle-wrap::-webkit-scrollbar { display: none; }
+
+  .cv-toggle__btn {
+    padding: 0 16px;
+    font-size: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Content padding */
+  .cv-view { padding: 24px 20px 48px; }
+
+  /* Stats grid */
+  .cv-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  /* Role cards */
+  .cv-role__header { flex-direction: column; gap: 2px; }
+  .cv-role__dates { font-size: 10px; }
+
+  /* Personal 4-block grid — 2 columns on mobile */
+  .cv-grid > div > div[style*="repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Tags wrap nicely */
+  .cv-tags { gap: 6px; }
+  .cv-tag { font-size: 10px; }
+
+  /* Section header */
+  .cv-section__header { flex-wrap: wrap; gap: 8px; }
+}
+
 @media (max-width: 480px) {
-  .cv-stats { grid-template-columns: repeat(2, 1fr); }
   .cv-hero__tags { display: none; }
+  .cv-stats { grid-template-columns: repeat(2, 1fr); }
 }
