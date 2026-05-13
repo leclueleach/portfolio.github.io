@@ -193,6 +193,41 @@ function initContactForm() {
 }
 
 /* ----------------------------------------------------------
+   HAMBURGER MENU
+   Toggles mobile overlay on hamburger click.
+   Closes on overlay link click or close button.
+---------------------------------------------------------- */
+function initHamburger() {
+  const hamburger = document.getElementById('navHamburger');
+  const overlay   = document.getElementById('navOverlay');
+  const closeBtn  = document.getElementById('navOverlayClose');
+  if (!hamburger || !overlay) return;
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  overlay.querySelectorAll('.nav__overlay-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+}
+
+/* ----------------------------------------------------------
    INIT — runs everything on DOMContentLoaded
 ---------------------------------------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -202,4 +237,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initDemoLaunchers();
   initCvDownload();
   initContactForm();
+  initHamburger();
 });
