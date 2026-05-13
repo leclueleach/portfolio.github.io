@@ -1,7 +1,7 @@
 /* ============================================================
    NAV.CSS — Le Clue Portfolio
-   Matches landing page nav exactly across all pages.
-   Transparent by default, frosted glass on scroll.
+   Desktop: transparent nav with pill links
+   Mobile: hamburger icon + full screen overlay menu
    ============================================================ */
 
 /* ── NAV CONTAINER ───────────────────────────────────────── */
@@ -21,7 +21,6 @@
     border-color 0.35s ease;
 }
 
-/* Scrolled / slim state */
 .nav.scrolled,
 .nav--slim {
   height: var(--nav-height-slim);
@@ -31,7 +30,6 @@
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-/* Pages without a hero image need a visible nav from the start */
 .nav--solid {
   background: rgba(6,9,20,0.96);
   backdrop-filter: blur(14px);
@@ -74,7 +72,7 @@
 
 .nav__logo:hover .nav__logo-name { color: #fff; }
 
-/* ── NAV LINKS ───────────────────────────────────────────── */
+/* ── DESKTOP NAV LINKS ───────────────────────────────────── */
 .nav__links {
   display: flex;
   align-items: center;
@@ -100,11 +98,8 @@
   transition: color 0.25s, background 0.25s, border-color 0.25s;
 }
 
-.nav__link:hover {
-  color: rgba(255,255,255,0.88);
-}
+.nav__link:hover { color: rgba(255,255,255,0.88); }
 
-/* Active — pill with teal */
 .nav__link.active,
 .nav__link[aria-current="page"] {
   color: rgba(255,255,255,0.88);
@@ -112,17 +107,119 @@
   border-color: rgba(20,184,166,0.3);
 }
 
+/* ── HAMBURGER BUTTON ────────────────────────────────────── */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: calc(var(--z-nav) + 2);
+}
+
+.nav__hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate to X when open */
+.nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── MOBILE OVERLAY ──────────────────────────────────────── */
+.nav__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6,9,20,0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: calc(var(--z-nav) + 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav__overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.nav__overlay-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.nav__overlay-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.nav__overlay-link:hover,
+.nav__overlay-link.active,
+.nav__overlay-link[aria-current="page"] {
+  color: #2DD4BF;
+  background: rgba(20,184,166,0.08);
+  border-color: rgba(20,184,166,0.2);
+}
+
+.nav__overlay-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 8px;
+  transition: color 0.2s;
+}
+
+.nav__overlay-close:hover { color: #fff; }
+
 /* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 900px) {
   .nav { padding: 0 24px; }
 }
 
 @media (max-width: 768px) {
-  .nav__logo-name { display: none; }
-  .nav__link { font-size: 9px; padding: 6px 10px; }
-}
-
-@media (max-width: 480px) {
-  .nav__links { gap: 0; }
-  .nav__link { padding: 5px 8px; }
+  /* Hide desktop links, show hamburger */
+  .nav__links { display: none; }
+  .nav__hamburger { display: flex; }
+  .nav__overlay { display: flex; }
 }
