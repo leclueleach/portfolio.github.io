@@ -217,9 +217,8 @@
   .nav { padding: 0 24px; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 860px) {
   /* Hide desktop links, show hamburger */
-  .nav__links { display: none; }
-  .nav__hamburger { display: flex; }
-  .nav__overlay { display: flex; }
+  .nav__links { display: none !important; }
+  .nav__hamburger { display: flex !important; }
 }
