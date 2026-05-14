@@ -47,19 +47,21 @@
 }
 
 .nav__logo-mark {
-  width: 32px; height: 32px;
-  background: rgba(20,184,166,0.9);
-  border-radius: 7px;
+  width: 36px; height: 36px;
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #fff;
-  letter-spacing: -0.02em;
   flex-shrink: 0;
-  transition: background 0.2s;
+  overflow: hidden;
+  transition: opacity 0.2s;
 }
 
-.nav__logo:hover .nav__logo-mark { background: #2DD4BF; }
+.nav__logo-mark img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.nav__logo:hover .nav__logo-mark { opacity: 0.85; }
 
 .nav__logo-name {
   font-family: 'Outfit', sans-serif;
