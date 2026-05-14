@@ -41,27 +41,6 @@ body {
   flex-shrink: 0;
 }
 
-.nav__mark {
-  width: 32px; height: 32px;
-  background: rgba(20,184,166,0.9);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #fff;
-  flex-shrink: 0;
-  transition: background 0.25s;
-}
-
-.nav__logo:hover .nav__mark { background: #2DD4BF; }
-
-.nav__name {
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.88);
-}
-
 .nav__links {
   margin-left: auto;
   display: flex;
