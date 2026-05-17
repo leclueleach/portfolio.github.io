@@ -71,16 +71,16 @@
     <div class="qa-tabs-wrap">
       <nav class="qa-tabs" aria-label="Jump to category">
         <a href="#cat-problem-solving" class="qa-tab qa-tab--teal active">
-          <span class="qa-tab__dot" aria-hidden="true"></span>Problem
+          <span class="qa-tab__dot" aria-hidden="true"></span>Problem Solving
         </a>
         <a href="#cat-leadership" class="qa-tab qa-tab--rust">
-          <span class="qa-tab__dot" aria-hidden="true"></span>Leadership
+          <span class="qa-tab__dot" aria-hidden="true"></span>Leadership &amp; Collaboration
         </a>
         <a href="#cat-technical" class="qa-tab qa-tab--purple">
           <span class="qa-tab__dot" aria-hidden="true"></span>Technical
         </a>
         <a href="#cat-ai" class="qa-tab qa-tab--blue">
-          <span class="qa-tab__dot" aria-hidden="true"></span>AI
+          <span class="qa-tab__dot" aria-hidden="true"></span>AI &amp; Tools
         </a>
       </nav>
     </div>
@@ -239,7 +239,7 @@
     <!-- FOOTER -->
     <footer class="qa-footer" role="contentinfo">
       <div class="qa-footer__copy">
-        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from real questions.
+        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from... .
       </div>
       <!-- <nav aria-label="Footer navigation">
         <ul class="qa-footer__links">
@@ -312,6 +312,16 @@
     });
 
     groups.forEach(g => sectionObserver.observe(g));
+
+    // Hide scroll hint when tabs are fully scrolled
+    const tabsEl = document.querySelector('.qa-tabs');
+    const tabsWrapEl = document.querySelector('.qa-tabs-wrap');
+    if (tabsEl && tabsWrapEl) {
+      tabsEl.addEventListener('scroll', () => {
+        const atEnd = tabsEl.scrollLeft + tabsEl.clientWidth >= tabsEl.scrollWidth - 4;
+        tabsWrapEl.classList.toggle('scrolled-end', atEnd);
+      }, { passive: true });
+    }
 
     // Auto-count questions
     document.getElementById('qaTotal').textContent = document.querySelectorAll('.qa-card').length;
