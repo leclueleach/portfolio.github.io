@@ -119,7 +119,7 @@ body {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 36px;
+  width: 44px;
   display: none;
   align-items: center;
   justify-content: center;
@@ -130,17 +130,18 @@ body {
   font-size: 22px;
   font-weight: 300;
   color: #14B8A6;
+  padding-bottom: 2px;
 }
 
 .qa-tabs-wrap .qa-scroll-hint-left {
   left: -12px;
-  background: linear-gradient(to left, transparent, #06090f 80%);
+  background: linear-gradient(to left, transparent 0%, #06090f 55%);
   opacity: 0;
 }
 
 .qa-tabs-wrap .qa-scroll-hint-right {
   right: -12px;
-  background: linear-gradient(to right, transparent, #06090f 80%);
+  background: linear-gradient(to right, transparent 0%, #06090f 55%);
   opacity: 1;
 }
 
