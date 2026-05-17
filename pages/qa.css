@@ -118,14 +118,15 @@ body {
 .qa-tabs-wrap .qa-scroll-hint-right {
   position: absolute;
   top: 0;
-  height: 150%;
-  width: 96px;
+  height: 100%;
+  width: 48px;
   display: none;
   align-items: center;
   pointer-events: none;
   z-index: 2;
   transition: opacity 0.3s;
-  font-size: 18px;
+  font-size: 28px;
+  font-weight: 300;
   color: #14B8A6;
 }
 
