@@ -119,31 +119,28 @@ body {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 48px;
+  width: 36px;
   display: none;
   align-items: center;
+  justify-content: center;
   pointer-events: all;
   cursor: pointer;
   z-index: 2;
   transition: opacity 0.3s;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 300;
   color: #14B8A6;
 }
 
 .qa-tabs-wrap .qa-scroll-hint-left {
   left: 0;
-  justify-content: center;
-  padding: 0;
-  background: linear-gradient(to left, transparent, #06090f 70%);
+  background: linear-gradient(to left, transparent, #06090f 80%);
   opacity: 0;
 }
 
 .qa-tabs-wrap .qa-scroll-hint-right {
   right: 0;
-  justify-content: center;
-  padding: 0;
-  background: linear-gradient(to right, transparent, #06090f 70%);
+  background: linear-gradient(to right, transparent, #06090f 80%);
   opacity: 1;
 }
 
@@ -387,7 +384,7 @@ body.nav-scrolled .qa-tabs-wrap {
   .qa-hero__inner { grid-template-columns: 1fr; }
   .qa-hero__count { text-align: left; }
   .qa-tabs-wrap { padding: 0; }
-  .qa-tabs { padding: 0 44px; }
+  .qa-tabs { padding: 0 36px; }
   .qa-group { padding: 40px 24px 52px; }
   .qa-cards { grid-template-columns: 1fr; }
   .qa-footer { padding: 24px; flex-direction: column; align-items: flex-start; }
