@@ -113,34 +113,44 @@ body {
   transition: top var(--transition-slow);
 }
 
-/* Scroll hint — right edge fade + arrow */
-.qa-tabs-wrap::after {
-  content: '›';
+/* Scroll hint arrows — only on mobile */
+.qa-tabs-wrap .qa-scroll-hint-left,
+.qa-tabs-wrap .qa-scroll-hint-right {
   position: absolute;
-  right: 0;
   top: 0;
   height: 100%;
   width: 48px;
-  display: flex;
+  display: none;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 12px;
-  background: linear-gradient(to right, transparent, #06090f 70%);
-  color: rgba(255,255,255,0.3);
-  font-size: 18px;
   pointer-events: none;
+  z-index: 2;
   transition: opacity 0.3s;
-  z-index: 1;
+  font-size: 18px;
+  color: #14B8A6;
 }
 
-/* Hide hint once scrolled to end */
-.qa-tabs-wrap.scrolled-end::after {
+.qa-tabs-wrap .qa-scroll-hint-left {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 12px;
+  background: linear-gradient(to left, transparent, #06090f 70%);
   opacity: 0;
 }
 
-/* Only show on mobile where scrolling is needed */
-@media (min-width: 861px) {
-  .qa-tabs-wrap::after { display: none; }
+.qa-tabs-wrap .qa-scroll-hint-right {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 12px;
+  background: linear-gradient(to right, transparent, #06090f 70%);
+  opacity: 1;
+}
+
+.qa-tabs-wrap .qa-scroll-hint-left.visible  { opacity: 1; }
+.qa-tabs-wrap .qa-scroll-hint-right.hidden   { opacity: 0; }
+
+@media (max-width: 860px) {
+  .qa-tabs-wrap .qa-scroll-hint-left,
+  .qa-tabs-wrap .qa-scroll-hint-right { display: flex; }
 }
 
 /* When nav is scrolled/slim, tab bar follows */
