@@ -69,7 +69,7 @@
 
     <!-- STICKY CATEGORY TABS -->
     <div class="qa-tabs-wrap">
-      <div class="qa-scroll-hint-left" id="tabHintLeft">‹‹</div>
+    <div class="qa-scroll-hint-left" id="tabHintLeft">&#171;</div>
       <nav class="qa-tabs" aria-label="Jump to category">
         <a href="#cat-problem-solving" class="qa-tab qa-tab--teal active">
           <span class="qa-tab__dot" aria-hidden="true"></span>Problem Solving
@@ -84,7 +84,7 @@
           <span class="qa-tab__dot" aria-hidden="true"></span>AI &amp; Tools
         </a>
       </nav>
-      <div class="qa-scroll-hint-right" id="tabHintRight">››</div>
+      <div class="qa-scroll-hint-right" id="tabHintRight">&#187;</div>
     </div>
 
     <!-- Q&A CONTENT -->
@@ -241,7 +241,7 @@
     <!-- FOOTER -->
     <footer class="qa-footer" role="contentinfo">
       <div class="qa-footer__copy">
-        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from... .
+        &copy; <span id="year"></span> <span>Le Clue Leach</span> — Built from real questions.
       </div>
       <!-- <nav aria-label="Footer navigation">
         <ul class="qa-footer__links">
@@ -328,10 +328,19 @@
       hintRight.classList.toggle('hidden', atEnd);
     }
 
+    function scrollTabs(direction) {
+      if (!tabsEl) return;
+      const tabWidth = tabsEl.querySelector('.qa-tab')?.offsetWidth || 120;
+      tabsEl.scrollBy({ left: direction * tabWidth, behavior: 'smooth' });
+    }
+
     if (tabsEl) {
       tabsEl.addEventListener('scroll', updateHints, { passive: true });
       updateHints();
     }
+
+    if (hintLeft)  hintLeft.addEventListener('click',  () => scrollTabs(-1));
+    if (hintRight) hintRight.addEventListener('click', () => scrollTabs(1));
 
     // Auto-count questions
     document.getElementById('qaTotal').textContent = document.querySelectorAll('.qa-card').length;
