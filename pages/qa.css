@@ -113,6 +113,36 @@ body {
   transition: top var(--transition-slow);
 }
 
+/* Scroll hint — right edge fade + arrow */
+.qa-tabs-wrap::after {
+  content: '›';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  background: linear-gradient(to right, transparent, #06090f 70%);
+  color: rgba(255,255,255,0.3);
+  font-size: 18px;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+/* Hide hint once scrolled to end */
+.qa-tabs-wrap.scrolled-end::after {
+  opacity: 0;
+}
+
+/* Only show on mobile where scrolling is needed */
+@media (min-width: 861px) {
+  .qa-tabs-wrap::after { display: none; }
+}
+
 /* When nav is scrolled/slim, tab bar follows */
 .nav.scrolled ~ * .qa-tabs-wrap,
 body.nav-scrolled .qa-tabs-wrap {
