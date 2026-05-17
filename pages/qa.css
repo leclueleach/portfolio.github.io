@@ -122,7 +122,8 @@ body {
   width: 48px;
   display: none;
   align-items: center;
-  pointer-events: none;
+  pointer-events: all;
+  cursor: pointer;
   z-index: 2;
   transition: opacity 0.3s;
   font-size: 28px;
@@ -132,16 +133,16 @@ body {
 
 .qa-tabs-wrap .qa-scroll-hint-left {
   left: 0;
-  justify-content: flex-start;
-  padding-left: 12px;
+  justify-content: center;
+  padding: 0;
   background: linear-gradient(to left, transparent, #06090f 70%);
   opacity: 0;
 }
 
 .qa-tabs-wrap .qa-scroll-hint-right {
   right: 0;
-  justify-content: flex-end;
-  padding-right: 12px;
+  justify-content: center;
+  padding: 0;
   background: linear-gradient(to right, transparent, #06090f 70%);
   opacity: 1;
 }
