@@ -118,8 +118,8 @@ body {
 .qa-tabs-wrap .qa-scroll-hint-right {
   position: absolute;
   top: 0;
-  height: 100%;
-  width: 75px;
+  height: 150%;
+  width: 96px;
   display: none;
   align-items: center;
   pointer-events: none;
