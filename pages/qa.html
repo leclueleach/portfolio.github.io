@@ -69,6 +69,7 @@
 
     <!-- STICKY CATEGORY TABS -->
     <div class="qa-tabs-wrap">
+      <div class="qa-scroll-hint-left" id="tabHintLeft">‹</div>
       <nav class="qa-tabs" aria-label="Jump to category">
         <a href="#cat-problem-solving" class="qa-tab qa-tab--teal active">
           <span class="qa-tab__dot" aria-hidden="true"></span>Problem Solving
@@ -83,6 +84,7 @@
           <span class="qa-tab__dot" aria-hidden="true"></span>AI &amp; Tools
         </a>
       </nav>
+      <div class="qa-scroll-hint-right" id="tabHintRight">›</div>
     </div>
 
     <!-- Q&A CONTENT -->
@@ -313,14 +315,22 @@
 
     groups.forEach(g => sectionObserver.observe(g));
 
-    // Hide scroll hint when tabs are fully scrolled
-    const tabsEl = document.querySelector('.qa-tabs');
-    const tabsWrapEl = document.querySelector('.qa-tabs-wrap');
-    if (tabsEl && tabsWrapEl) {
-      tabsEl.addEventListener('scroll', () => {
-        const atEnd = tabsEl.scrollLeft + tabsEl.clientWidth >= tabsEl.scrollWidth - 4;
-        tabsWrapEl.classList.toggle('scrolled-end', atEnd);
-      }, { passive: true });
+    // Scroll hints — show/hide left and right arrows
+    const tabsEl       = document.querySelector('.qa-tabs');
+    const hintLeft     = document.getElementById('tabHintLeft');
+    const hintRight    = document.getElementById('tabHintRight');
+
+    function updateHints() {
+      if (!tabsEl || !hintLeft || !hintRight) return;
+      const atStart = tabsEl.scrollLeft <= 4;
+      const atEnd   = tabsEl.scrollLeft + tabsEl.clientWidth >= tabsEl.scrollWidth - 4;
+      hintLeft.classList.toggle('visible', !atStart);
+      hintRight.classList.toggle('hidden', atEnd);
+    }
+
+    if (tabsEl) {
+      tabsEl.addEventListener('scroll', updateHints, { passive: true });
+      updateHints();
     }
 
     // Auto-count questions
