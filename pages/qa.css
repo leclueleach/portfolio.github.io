@@ -133,13 +133,13 @@ body {
 }
 
 .qa-tabs-wrap .qa-scroll-hint-left {
-  left: 24px;
+  left: -12px;
   background: linear-gradient(to left, transparent, #06090f 80%);
   opacity: 0;
 }
 
 .qa-tabs-wrap .qa-scroll-hint-right {
-  right: 24px;
+  right: -12px;
   background: linear-gradient(to right, transparent, #06090f 80%);
   opacity: 1;
 }
@@ -384,7 +384,7 @@ body.nav-scrolled .qa-tabs-wrap {
   .qa-hero__inner { grid-template-columns: 1fr; }
   .qa-hero__count { text-align: left; }
   .qa-tabs-wrap { padding: 0; }
-  .qa-tabs { padding: 0 60px; }
+  .qa-tabs { padding: 0 24px; }
   .qa-group { padding: 40px 24px 52px; }
   .qa-cards { grid-template-columns: 1fr; }
   .qa-footer { padding: 24px; flex-direction: column; align-items: flex-start; }
