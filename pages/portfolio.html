@@ -425,17 +425,17 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
     }
 
-    /* Fixed fan layout — all visible simultaneously, no animation */
-    .meal-gallery__img--1 { transform: rotate(-12deg) translate(-70%, 5%);  z-index: 1; opacity: 0.6; }
-    .meal-gallery__img--2 { transform: rotate(-6deg)  translate(-35%, 2%);  z-index: 2; opacity: 0.8; }
-    .meal-gallery__img--3 { transform: rotate(0deg)   translate(0%, 0%);    z-index: 5; opacity: 1;   }
-    .meal-gallery__img--4 { transform: rotate(6deg)   translate(35%, 2%);   z-index: 2; opacity: 0.8; }
-    .meal-gallery__img--5 { transform: rotate(12deg)  translate(70%, 5%);   z-index: 1; opacity: 0.6; }
+    /* Fixed straight line layout — all visible simultaneously */
+    .meal-gallery__img--1 { transform: translateX(-68%) scale(0.65); z-index: 1; opacity: 0.45; }
+    .meal-gallery__img--2 { transform: translateX(-36%) scale(0.82); z-index: 2; opacity: 0.7; }
+    .meal-gallery__img--3 { transform: translateX(0%)   scale(1.0);  z-index: 5; opacity: 1.0; }
+    .meal-gallery__img--4 { transform: translateX(36%)  scale(0.82); z-index: 2; opacity: 0.7; }
+    .meal-gallery__img--5 { transform: translateX(68%)  scale(0.65); z-index: 1; opacity: 0.45; }
 
     /* Click hint */
     .meal-gallery::after {
@@ -469,8 +469,8 @@
     /* Fan modal */
     .fan-modal {
       position: relative;
-      width: min(60vw, 340px);
-      height: min(60vw, 340px);
+      width: min(90vw, 700px);
+      height: min(50vw, 380px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -478,13 +478,11 @@
 
     .fan-img {
       position: absolute;
-      width: 75%;
-      height: 75%;
-      object-fit: cover;
+      object-fit: contain;
       border-radius: 14px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.7);
       cursor: pointer;
-      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.45s ease, z-index 0s;
+      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.45s ease, width 0.45s ease, height 0.45s ease;
     }
 
     .fan-img:hover { filter: brightness(1.1); }
@@ -533,19 +531,18 @@
     ];
     let mealCurrent = 0;
 
-    // Fan positions: [rotation, translateX%, translateY%, scale, opacity, zIndex]
+    // Straight line positions: [translateX%, scale, opacity, zIndex, width, height]
     const fanPositions = [
-      [-14, -90,  8, 0.72, 0.5, 1],
-      [-6,  -44,  3, 0.86, 0.75, 2],
-      [0,    0,   0, 1.0,  1.0,  5],
-      [6,    44,  3, 0.86, 0.75, 2],
-      [14,   90,  8, 0.72, 0.5,  1],
+      [-200, 0.65, 0.45, 1, '22%', 'auto'],
+      [-110, 0.82, 0.7,  2, '28%', 'auto'],
+      [0,    1.0,  1.0,  5, '38%', 'auto'],
+      [110,  0.82, 0.7,  2, '28%', 'auto'],
+      [200,  0.65, 0.45, 1, '22%', 'auto'],
     ];
 
     function buildFan(centerIndex) {
       const container = document.getElementById('fanModal');
       container.innerHTML = '';
-      // Order: show all 4 images around center
       const order = [
         (centerIndex + 2) % 4,
         (centerIndex + 1) % 4,
@@ -554,22 +551,24 @@
         (centerIndex + 2) % 4,
       ];
       order.forEach((imgIndex, posIndex) => {
-        const [rot, tx, ty, scale, opacity, z] = fanPositions[posIndex];
+        const [tx, scale, opacity, z, w] = fanPositions[posIndex];
         const img = document.createElement('img');
         img.src = mealImgs[imgIndex];
         img.className = 'fan-img';
         img.alt = `Meal Planner screenshot ${imgIndex + 1}`;
         img.style.cssText = `
-          transform: rotate(${rot}deg) translate(${tx}%, ${ty}%) scale(${scale});
+          transform: translateX(${tx}%) scale(${scale});
           opacity: ${opacity};
           z-index: ${z};
+          width: ${w};
+          height: auto;
+          max-height: 90%;
         `;
         if (posIndex !== 2) {
           img.addEventListener('click', () => setFanCenter(imgIndex));
         }
         container.appendChild(img);
       });
-      // Update dots
       document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === centerIndex));
     }
 
