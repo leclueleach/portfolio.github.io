@@ -186,20 +186,17 @@
           </div>
 
           <!-- Image Carousel Modal -->
-          <div id="carouselModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:32px;">
-            <button onclick="closeCarousel()" style="position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:32px;cursor:pointer;line-height:1;">&times;</button>
-            <div style="display:flex;align-items:center;gap:24px;position:relative;">
-              <button onclick="setFanCenter((mealCurrent+3)%4)" style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#a78bfa;width:48px;height:48px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;position:relative;z-index:20;">&#8249;</button>
+          <div id="carouselModal" style="display:none;position:fixed;inset:0;background:rgba(6,9,20,0.97);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:24px;">
+            <button onclick="closeCarousel()" style="position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:32px;cursor:pointer;line-height:1;z-index:10;">&times;</button>
+            <!-- Carousel track -->
+            <div style="position:relative;width:100vw;height:75vh;display:flex;align-items:center;justify-content:center;overflow:hidden;">
               <div class="fan-modal" id="fanModal"></div>
-              <button onclick="setFanCenter((mealCurrent+1)%4)" style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#a78bfa;width:48px;height:48px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;position:relative;z-index:20;">&#8250;</button>
+              <!-- Arrows -->
+              <button onclick="setFanCenter((mealCurrent+3)%mealImgs.length)" class="carousel-arrow carousel-arrow--left">&#8249;</button>
+              <button onclick="setFanCenter((mealCurrent+1)%mealImgs.length)" class="carousel-arrow carousel-arrow--right">&#8250;</button>
             </div>
-            <div style="display:flex;gap:10px;">
-              <span class="carousel-dot active" onclick="setFanCenter(0)"></span>
-              <span class="carousel-dot" onclick="setFanCenter(1)"></span>
-              <span class="carousel-dot" onclick="setFanCenter(2)"></span>
-              <span class="carousel-dot" onclick="setFanCenter(3)"></span>
-            </div>
-            <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:0.1em;">Click any image to bring it forward</p>
+            <!-- Dots -->
+            <div id="carouselDots" style="display:flex;gap:10px;"></div>
           </div>
           <div class="demo-card demo-card--placeholder reveal">
             <div class="demo-card__thumb">
@@ -457,6 +454,60 @@
     .meal-gallery__dots { display: none; }
 
     /* Carousel dots */
+    /* Fan modal */
+    .fan-modal {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fan-img {
+      position: absolute;
+      height: 86%;
+      width: auto;
+      max-width: 34vw;
+      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+      cursor: pointer;
+      transition: transform 0.55s cubic-bezier(0.34,1.2,0.64,1),
+                  opacity 0.55s ease,
+                  filter 0.55s ease;
+    }
+
+    .fan-img:not(.fan-centre):hover { filter: brightness(1.15); }
+
+    /* Carousel arrows */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(167,139,250,0.12);
+      border: 1px solid rgba(167,139,250,0.35);
+      color: #a78bfa;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(167,139,250,0.25);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-arrow--left  { left: 20px; }
+    .carousel-arrow--right { right: 20px; }
+
+    /* Carousel dots */
     .carousel-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
@@ -469,30 +520,6 @@
       background: #a78bfa;
       transform: scale(1.3);
     }
-
-    /* Fan modal */
-    .fan-modal {
-      position: relative;
-      width: 70vw;
-      max-width: 700px;
-      height: min(45vw, 420px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .fan-img {
-      position: absolute;
-      width: 40%;
-      height: 90%;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.8);
-      cursor: pointer;
-      transition: transform 0.5s cubic-bezier(0.34,1.3,0.64,1), opacity 0.5s ease;
-    }
-
-    .fan-img:hover { filter: brightness(1.15); }
   </style>
 
   <script>
@@ -547,51 +574,67 @@
       [48,  0.65, 0.45, 1, '100%', 'auto'],
     ];
 
+    // Modal positions: centre large, left/right half-visible
+    const modalPositions = [
+      { tx: '-78%', scale: 0.75, opacity: 0.5,  z: 1 },
+      { tx: '-42%', scale: 0.88, opacity: 0.8,  z: 2 },
+      { tx: '0%',   scale: 1.0,  opacity: 1.0,  z: 5 },
+      { tx: '42%',  scale: 0.88, opacity: 0.8,  z: 2 },
+      { tx: '78%',  scale: 0.75, opacity: 0.5,  z: 1 },
+    ];
+
     function buildFan(centerIndex, animate) {
       const container = document.getElementById('fanModal');
+      const total = mealImgs.length;
       const order = [
-        (centerIndex + 2) % 4,
-        (centerIndex + 1) % 4,
+        (centerIndex + total - 2) % total,
+        (centerIndex + total - 1) % total,
         centerIndex,
-        (centerIndex + 3) % 4,
-        (centerIndex + 2) % 4,
+        (centerIndex + 1) % total,
+        (centerIndex + 2) % total,
       ];
 
-      // First build — create elements
       if (!container.children.length || !animate) {
         container.innerHTML = '';
         order.forEach((imgIndex, posIndex) => {
-          const [tx, scale, opacity, z, w] = fanPositions[posIndex];
+          const pos = modalPositions[posIndex];
           const img = document.createElement('img');
           img.src = mealImgs[imgIndex];
-          img.className = 'fan-img';
-          img.alt = `Meal Planner screenshot ${imgIndex + 1}`;
-          img.style.cssText = `transform:translateX(${tx}%) scale(${scale});opacity:${opacity};z-index:${z};width:${w};max-height:90%;`;
+          img.className = 'fan-img' + (posIndex === 2 ? ' fan-centre' : '');
+          img.alt = `Screenshot ${imgIndex + 1}`;
+          img.style.cssText = `transform:translateX(${pos.tx}) scale(${pos.scale});opacity:${pos.opacity};z-index:${pos.z};`;
           if (posIndex !== 2) img.addEventListener('click', () => setFanCenter(imgIndex));
           container.appendChild(img);
         });
       } else {
-        // Animate — update existing elements
         Array.from(container.children).forEach((img, posIndex) => {
-          const [tx, scale, opacity, z, w] = fanPositions[posIndex];
+          const pos = modalPositions[posIndex];
           img.src = mealImgs[order[posIndex]];
-          img.style.transform = `translateX(${tx}%) scale(${scale})`;
-          img.style.opacity   = opacity;
-          img.style.zIndex    = z;
-          img.style.width     = w;
+          img.className = 'fan-img' + (posIndex === 2 ? ' fan-centre' : '');
+          img.style.transform = `translateX(${pos.tx}) scale(${pos.scale})`;
+          img.style.opacity   = pos.opacity;
+          img.style.zIndex    = pos.z;
           img.onclick = posIndex !== 2 ? () => setFanCenter(order[posIndex]) : null;
         });
       }
 
-      document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === centerIndex));
+      // Update dots
+      const dotsEl = document.getElementById('carouselDots');
+      if (dotsEl) {
+        dotsEl.innerHTML = '';
+        mealImgs.forEach((_, i) => {
+          const d = document.createElement('span');
+          d.className = 'carousel-dot' + (i === centerIndex ? ' active' : '');
+          d.onclick = () => setFanCenter(i);
+          dotsEl.appendChild(d);
+        });
+      }
     }
 
     function setFanCenter(index) {
       mealCurrent = index;
       buildFan(mealCurrent, true);
     }
-
-    document.getElementById('mealGallery').addEventListener('click', () => openCarousel(0));
 
     function openCarousel(index) {
       mealCurrent = index;
@@ -605,14 +648,16 @@
       document.body.style.overflow = '';
     }
 
+    document.getElementById('mealGallery').addEventListener('click', () => openCarousel(0));
+
     document.getElementById('carouselModal').addEventListener('click', function(e) {
       if (e.target === this) closeCarousel();
     });
 
     document.addEventListener('keydown', e => {
       if (document.getElementById('carouselModal').style.display === 'flex') {
-        if (e.key === 'ArrowRight') setFanCenter((mealCurrent + 1) % 4);
-        if (e.key === 'ArrowLeft')  setFanCenter((mealCurrent + 3) % 4);
+        if (e.key === 'ArrowRight') setFanCenter((mealCurrent + 1) % mealImgs.length);
+        if (e.key === 'ArrowLeft')  setFanCenter((mealCurrent + mealImgs.length - 1) % mealImgs.length);
         if (e.key === 'Escape')     closeCarousel();
       }
     });
