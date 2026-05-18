@@ -185,7 +185,21 @@
             </div>
           </div>
 
-          <!-- Placeholder — Mass Ticket Generator -->
+          <!-- Image Carousel Modal -->
+          <div id="carouselModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+            <button onclick="closeCarousel()" style="position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:32px;cursor:pointer;line-height:1;">&times;</button>
+            <div style="position:relative;display:flex;align-items:center;gap:16px;">
+              <button onclick="carouselNext(-1)" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">‹</button>
+              <img id="carouselImg" src="" alt="Meal Planner screenshot" style="max-height:75vh;max-width:80vw;border-radius:14px;object-fit:contain;transition:opacity 0.15s ease;">
+              <button onclick="carouselNext(1)" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#fff;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">›</button>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <span class="carousel-dot active" onclick="openCarousel(0)"></span>
+              <span class="carousel-dot" onclick="openCarousel(1)"></span>
+              <span class="carousel-dot" onclick="openCarousel(2)"></span>
+              <span class="carousel-dot" onclick="openCarousel(3)"></span>
+            </div>
+          </div>
           <div class="demo-card demo-card--placeholder reveal">
             <div class="demo-card__thumb">
               <div class="demo-card__thumb-placeholder">
@@ -449,6 +463,20 @@
       background: #a78bfa;
       transform: scale(1.3);
     }
+
+    /* Carousel dots */
+    .carousel-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-dot.active {
+      background: #a78bfa;
+      transform: scale(1.3);
+    }
   </style>
 
   <script>
@@ -485,7 +513,7 @@
       if (e.target === this) closeVideoPlayer();
     });
 
-    // Meal Planner gallery
+    // Meal Planner image carousel
     const mealImgs = [
       '../assets/img/Meal_Planner_1.jpeg',
       '../assets/img/Meal_Planner_2.jpeg',
@@ -495,17 +523,20 @@
     let mealCurrent = 0;
 
     function updateMealGallery(index) {
-      mealCurrent = index;
+      mealCurrent = ((index % 4) + 4) % 4;
       const imgs = document.querySelectorAll('.meal-gallery__img');
       const dots = document.querySelectorAll('.meal-dot');
-      const order = [0,1,2,3];
-      const rotated = [...order.slice(index), ...order.slice(0, index)];
-      const positions = ['--1','--2','--3','--4','--5'];
-      imgs.forEach((img, i) => {
-        img.src = mealImgs[rotated[i % 4]];
-        img.className = `meal-gallery__img meal-gallery__img-${positions[i]}`;
-      });
-      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      imgs[0].src = mealImgs[mealCurrent];
+      imgs[1].src = mealImgs[(mealCurrent + 1) % 4];
+      imgs[2].src = mealImgs[(mealCurrent + 2) % 4];
+      imgs[3].src = mealImgs[(mealCurrent + 3) % 4];
+      if (imgs[4]) imgs[4].src = mealImgs[(mealCurrent + 1) % 4];
+      dots.forEach((d, i) => d.classList.toggle('active', i === mealCurrent));
+      // Sync carousel modal if open
+      const carouselImg = document.getElementById('carouselImg');
+      const carouselDots = document.querySelectorAll('.carousel-dot');
+      if (carouselImg) carouselImg.src = mealImgs[mealCurrent];
+      carouselDots.forEach((d, i) => d.classList.toggle('active', i === mealCurrent));
     }
 
     document.querySelectorAll('.meal-dot').forEach(dot => {
@@ -515,10 +546,50 @@
       });
     });
 
+    // Open carousel on gallery click
+    document.getElementById('mealGallery').addEventListener('click', () => openCarousel(mealCurrent));
+
+    function openCarousel(index) {
+      mealCurrent = index;
+      const modal = document.getElementById('carouselModal');
+      const img   = document.getElementById('carouselImg');
+      img.src = mealImgs[mealCurrent];
+      document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === mealCurrent));
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCarousel() {
+      document.getElementById('carouselModal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function carouselNext(dir) {
+      mealCurrent = ((mealCurrent + dir) % 4 + 4) % 4;
+      const img = document.getElementById('carouselImg');
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = mealImgs[mealCurrent];
+        img.style.opacity = '1';
+      }, 150);
+      document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === mealCurrent));
+    }
+
+    document.getElementById('carouselModal').addEventListener('click', function(e) {
+      if (e.target === this) closeCarousel();
+    });
+
+    document.addEventListener('keydown', e => {
+      const modal = document.getElementById('carouselModal');
+      if (modal.style.display === 'flex') {
+        if (e.key === 'ArrowRight') carouselNext(1);
+        if (e.key === 'ArrowLeft')  carouselNext(-1);
+        if (e.key === 'Escape')     closeCarousel();
+      }
+    });
+
     // Auto-rotate gallery
-    setInterval(() => {
-      updateMealGallery((mealCurrent + 1) % 4);
-    }, 3000);
+    setInterval(() => updateMealGallery(mealCurrent + 1), 3000);
   </script>
 
 </body>
