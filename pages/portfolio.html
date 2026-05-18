@@ -587,8 +587,6 @@
       const container = document.getElementById('fanModal');
       const total = mealImgs.length;
 
-      // Each slot maps to a position index (0=far left ... 4=far right)
-      // We always keep 5 img elements, only change which position each is at
       const order = [
         (centerIndex + total - 2) % total,
         (centerIndex + total - 1) % total,
@@ -597,46 +595,62 @@
         (centerIndex + 2) % total,
       ];
 
-      // Build from scratch on first open
       if (!container.children.length) {
+        // First build — create 5 fixed slot divs, each containing an img
         order.forEach((imgIndex, posIndex) => {
           const pos = modalPositions[posIndex];
+          const slot = document.createElement('div');
+          slot.className = 'fan-slot';
+          slot.style.cssText = `
+            position:absolute;
+            height:86%;width:auto;max-width:34vw;
+            transform:translateX(${pos.tx}) scale(${pos.scale});
+            opacity:${pos.opacity};
+            z-index:${pos.z};
+            transition:transform 0.55s cubic-bezier(0.34,1.2,0.64,1), opacity 0.55s ease;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 24px 60px rgba(0,0,0,0.8);
+            cursor:${posIndex !== 2 ? 'pointer' : 'default'};
+          `;
           const img = document.createElement('img');
           img.src = mealImgs[imgIndex];
-          img.className = 'fan-img';
-          img.dataset.slot = posIndex;
-          img.alt = `Screenshot ${imgIndex + 1}`;
-          img.style.cssText = `transform:translateX(${pos.tx}) scale(${pos.scale});opacity:${pos.opacity};z-index:${pos.z};`;
-          if (posIndex !== 2) img.addEventListener('click', () => setFanCenter(imgIndex));
-          container.appendChild(img);
-        });
-      } else if (!animate) {
-        // Reset without animation
-        Array.from(container.children).forEach((img, posIndex) => {
-          const pos = modalPositions[posIndex];
-          img.style.transition = 'none';
-          img.src = mealImgs[order[posIndex]];
-          img.style.cssText = `transform:translateX(${pos.tx}) scale(${pos.scale});opacity:${pos.opacity};z-index:${pos.z};`;
-          img.onclick = posIndex !== 2 ? (() => { const idx = order[posIndex]; return () => setFanCenter(idx); })() : null;
-          // Re-enable transition after reset
-          requestAnimationFrame(() => { img.style.transition = ''; });
+          img.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;border-radius:20px;';
+          slot.appendChild(img);
+          if (posIndex !== 2) {
+            slot.addEventListener('click', (() => {
+              const idx = imgIndex;
+              return () => setFanCenter(idx);
+            })());
+          }
+          container.appendChild(slot);
         });
       } else {
-        // Animate — update src and position simultaneously but use requestAnimationFrame
-        // to ensure transition fires on transform change
-        Array.from(container.children).forEach((img, posIndex) => {
+        // Animate — update slot positions and images
+        Array.from(container.children).forEach((slot, posIndex) => {
           const pos = modalPositions[posIndex];
           const newIdx = order[posIndex];
-          // Update image src
-          img.src = mealImgs[newIdx];
-          img.className = 'fan-img' + (posIndex === 2 ? ' fan-centre' : '');
-          // Capture old values, then update in next frame to trigger transition
-          requestAnimationFrame(() => {
-            img.style.transform = `translateX(${pos.tx}) scale(${pos.scale})`;
-            img.style.opacity   = String(pos.opacity);
-            img.style.zIndex    = String(pos.z);
-          });
-          img.onclick = posIndex !== 2 ? (() => { const idx = newIdx; return () => setFanCenter(idx); })() : null;
+          const img = slot.querySelector('img');
+
+          // Animate position
+          slot.style.transform = `translateX(${pos.tx}) scale(${pos.scale})`;
+          slot.style.opacity   = pos.opacity;
+          slot.style.zIndex    = pos.z;
+          slot.style.cursor    = posIndex !== 2 ? 'pointer' : 'default';
+
+          // Crossfade image
+          img.style.transition = 'opacity 0.25s ease';
+          img.style.opacity = '0';
+          setTimeout(() => {
+            img.src = mealImgs[newIdx];
+            img.style.opacity = '1';
+          }, 200);
+
+          // Update click handler
+          slot.onclick = posIndex !== 2 ? (() => {
+            const idx = newIdx;
+            return () => setFanCenter(idx);
+          })() : null;
         });
       }
 
@@ -660,6 +674,7 @@
 
     function openCarousel(index) {
       mealCurrent = index;
+      document.getElementById('fanModal').innerHTML = '';
       buildFan(mealCurrent, false);
       document.getElementById('carouselModal').style.display = 'flex';
       document.body.style.overflow = 'hidden';
