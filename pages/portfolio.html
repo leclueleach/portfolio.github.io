@@ -141,26 +141,47 @@
 
         <div class="portfolio-grid">
 
-          <!-- Placeholder — Billing Automation -->
-          <div class="demo-card demo-card--placeholder reveal">
-            <div class="demo-card__thumb">
-              <div class="demo-card__thumb-placeholder">
-                <div class="demo-card__thumb-icon">⚙️</div>
-                <div class="demo-card__thumb-label">Coming soon</div>
+          <!-- LC Project Progress — real -->
+          <div class="demo-card reveal">
+            <div class="demo-card__thumb" id="projectThumb" style="cursor:pointer;" onclick="openVideoPlayer()">
+              <img src="../assets/img/LC_Project_Progress_Thumb.png" alt="LC Project Progress Tracker" loading="lazy">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);">
+                <div style="width:52px;height:52px;border-radius:50%;background:rgba(20,184,166,0.9);display:flex;align-items:center;justify-content:center;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+                </div>
               </div>
             </div>
             <div class="demo-card__body">
-              <div class="demo-card__category">Finance · Google Apps Script</div>
-              <h3 class="demo-card__title">Billing Automation Pipeline</h3>
-              <p class="demo-card__desc">Automated billing workflow using Google Sheets and Apps Script — dynamic sheet targeting, formatted HTML emails, and Supabase logging.</p>
+              <div class="demo-card__category">Workflow · Google Sheets & Apps Script</div>
+              <h3 class="demo-card__title">LC Project Progress Tracker</h3>
+              <p class="demo-card__desc">A project tracking system built for a small business to manage and assign work across internal staff and freelancers. Automated tab creation keeps everything structured, a webapp dashboard gives management real-time oversight, and the whole system is designed to reduce admin time and minimise human error across multiple teams.</p>
               <div class="demo-card__tags">
                 <span class="p-tag p-tag--rust">Automation</span>
-                <span class="p-tag">Apps Script</span>
                 <span class="p-tag">Google Sheets</span>
+                <span class="p-tag">Apps Script</span>
+                <span class="p-tag">Webapp</span>
               </div>
             </div>
             <div class="demo-card__footer">
-              <span class="demo-card__status demo-card__status--progress">In progress</span>
+              <div>
+                <button class="demo-card__launch" onclick="openVideoPlayer()">Watch Demo ▶</button>
+                <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.25);margin-top:6px;font-style:italic;">Personal project · Live</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Player Modal -->
+          <div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+            <div style="position:relative;width:90vw;max-width:900px;">
+              <button onclick="closeVideoPlayer()" style="position:absolute;top:-40px;right:0;background:none;border:none;color:rgba(255,255,255,0.6);font-size:28px;cursor:pointer;line-height:1;">&times;</button>
+              <video id="demoVideo" controls style="width:100%;border-radius:12px;background:#000;" preload="metadata">
+                <source src="../assets/videos/LC_Project_Progress - Video 1.mp4" type="video/mp4">
+              </video>
+              <div style="display:flex;gap:10px;margin-top:12px;justify-content:center;">
+                <button class="video-btn active" onclick="switchVideo(0,this)">Part 1</button>
+                <button class="video-btn" onclick="switchVideo(1,this)">Part 2</button>
+                <button class="video-btn" onclick="switchVideo(2,this)">Part 3</button>
+              </div>
             </div>
           </div>
 
@@ -301,7 +322,63 @@
       if (closeBtn) closeBtn.addEventListener('click', closeMenu);
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     }
-  </script>
+    <style>
+      .video-btn {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        padding: 8px 20px;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.15);
+        background: transparent;
+        color: rgba(255,255,255,0.5);
+        cursor: pointer;
+        letter-spacing: 0.08em;
+        transition: all 0.2s;
+      }
+      .video-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+      .video-btn.active { background: rgba(20,184,166,0.15); color: #14B8A6; border-color: rgba(20,184,166,0.4); }
+    </style>
 
-</body>
+    <script>
+      const videos = [
+        '../assets/videos/LC_Project_Progress - Video 1.mp4',
+        '../assets/videos/LC_Project_Progress - Video 2.mp4',
+        '../assets/videos/LC_Project_Progress - Video 3.mp4',
+      ];
+
+      function openVideoPlayer() {
+        const modal = document.getElementById('videoModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        document.getElementById('demoVideo').play();
+      }
+
+      function closeVideoPlayer() {
+        const modal = document.getElementById('videoModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+        document.getElementById('demoVideo').pause();
+      }
+
+      function switchVideo(index, btn) {
+        const video = document.getElementById('demoVideo');
+        video.src = videos[index];
+        video.load();
+        video.play();
+        document.querySelectorAll('.video-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      // Close on backdrop click
+      document.getElementById('videoModal').addEventListener('click', function(e) {
+        if (e.target === this) closeVideoPlayer();
+      });
+
+      // Close on escape
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeVideoPlayer();
+      });
+    </script>
+
+  </body>
 </html>
