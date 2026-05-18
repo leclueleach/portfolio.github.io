@@ -299,6 +299,11 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // Fallback — make all reveal elements visible after 1s if observer hasn't fired
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 1000);
+
     /* ── HAMBURGER MENU ─────────────────────────────────── */
     const hamburger = document.querySelector('.nav__hamburger');
     const overlay   = document.querySelector('.nav__overlay');
