@@ -327,63 +327,59 @@
       if (closeBtn) closeBtn.addEventListener('click', closeMenu);
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     }
-    <style>
-      .video-btn {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 11px;
-        padding: 8px 20px;
-        border-radius: 6px;
-        border: 1px solid rgba(255,255,255,0.15);
-        background: transparent;
-        color: rgba(255,255,255,0.5);
-        cursor: pointer;
-        letter-spacing: 0.08em;
-        transition: all 0.2s;
-      }
-      .video-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
-      .video-btn.active { background: rgba(20,184,166,0.15); color: #14B8A6; border-color: rgba(20,184,166,0.4); }
-    </style>
+  </script>
 
-    <script>
-      const videos = [
-        '../assets/videos/LC_Project_Progress - Video 1.mp4',
-        '../assets/videos/LC_Project_Progress - Video 2.mp4',
-        '../assets/videos/LC_Project_Progress - Video 3.mp4',
-      ];
+  <style>
+    .video-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    .video-btn:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .video-btn.active { background: rgba(20,184,166,0.15); color: #14B8A6; border-color: rgba(20,184,166,0.4); }
+  </style>
 
-      function openVideoPlayer() {
-        const modal = document.getElementById('videoModal');
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-        document.getElementById('demoVideo').play();
-      }
+  <script>
+    const videos = [
+      '../assets/videos/LC_Project_Progress - Video 1.mp4',
+      '../assets/videos/LC_Project_Progress - Video 2.mp4',
+      '../assets/videos/LC_Project_Progress - Video 3.mp4',
+    ];
 
-      function closeVideoPlayer() {
-        const modal = document.getElementById('videoModal');
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-        document.getElementById('demoVideo').pause();
-      }
+    function openVideoPlayer() {
+      const modal = document.getElementById('videoModal');
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      document.getElementById('demoVideo').play();
+    }
 
-      function switchVideo(index, btn) {
-        const video = document.getElementById('demoVideo');
-        video.src = videos[index];
-        video.load();
-        video.play();
-        document.querySelectorAll('.video-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
+    function closeVideoPlayer() {
+      const modal = document.getElementById('videoModal');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      document.getElementById('demoVideo').pause();
+    }
 
-      // Close on backdrop click
-      document.getElementById('videoModal').addEventListener('click', function(e) {
-        if (e.target === this) closeVideoPlayer();
-      });
+    function switchVideo(index, btn) {
+      const video = document.getElementById('demoVideo');
+      video.src = videos[index];
+      video.load();
+      video.play();
+      document.querySelectorAll('.video-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
 
-      // Close on escape
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeVideoPlayer();
-      });
-    </script>
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) closeVideoPlayer();
+    });
+  </script>
 
-  </body>
+</body>
 </html>
