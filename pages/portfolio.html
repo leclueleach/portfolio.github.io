@@ -188,7 +188,11 @@
           <!-- Image Carousel Modal -->
           <div id="carouselModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:32px;">
             <button onclick="closeCarousel()" style="position:absolute;top:20px;right:20px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:32px;cursor:pointer;line-height:1;">&times;</button>
-            <div class="fan-modal" id="fanModal"></div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <button onclick="setFanCenter((mealCurrent+3)%4)" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);color:#a78bfa;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;">&#8249;</button>
+              <div class="fan-modal" id="fanModal"></div>
+              <button onclick="setFanCenter((mealCurrent+1)%4)" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);color:#a78bfa;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;">&#8250;</button>
+            </div>
             <div style="display:flex;gap:10px;">
               <span class="carousel-dot active" onclick="setFanCenter(0)"></span>
               <span class="carousel-dot" onclick="setFanCenter(1)"></span>
@@ -482,10 +486,10 @@
       border-radius: 14px;
       box-shadow: 0 12px 40px rgba(0,0,0,0.7);
       cursor: pointer;
-      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), opacity 0.45s ease, width 0.45s ease, height 0.45s ease;
+      transition: transform 0.5s cubic-bezier(0.34,1.3,0.64,1), opacity 0.5s ease, width 0.5s ease;
     }
 
-    .fan-img:hover { filter: brightness(1.1); }
+    .fan-img:hover { filter: brightness(1.15); }
   </style>
 
   <script>
@@ -540,9 +544,8 @@
       [200,  0.65, 0.45, 1, '22%', 'auto'],
     ];
 
-    function buildFan(centerIndex) {
+    function buildFan(centerIndex, animate) {
       const container = document.getElementById('fanModal');
-      container.innerHTML = '';
       const order = [
         (centerIndex + 2) % 4,
         (centerIndex + 1) % 4,
@@ -550,38 +553,46 @@
         (centerIndex + 3) % 4,
         (centerIndex + 2) % 4,
       ];
-      order.forEach((imgIndex, posIndex) => {
-        const [tx, scale, opacity, z, w] = fanPositions[posIndex];
-        const img = document.createElement('img');
-        img.src = mealImgs[imgIndex];
-        img.className = 'fan-img';
-        img.alt = `Meal Planner screenshot ${imgIndex + 1}`;
-        img.style.cssText = `
-          transform: translateX(${tx}%) scale(${scale});
-          opacity: ${opacity};
-          z-index: ${z};
-          width: ${w};
-          height: auto;
-          max-height: 90%;
-        `;
-        if (posIndex !== 2) {
-          img.addEventListener('click', () => setFanCenter(imgIndex));
-        }
-        container.appendChild(img);
-      });
+
+      // First build — create elements
+      if (!container.children.length || !animate) {
+        container.innerHTML = '';
+        order.forEach((imgIndex, posIndex) => {
+          const [tx, scale, opacity, z, w] = fanPositions[posIndex];
+          const img = document.createElement('img');
+          img.src = mealImgs[imgIndex];
+          img.className = 'fan-img';
+          img.alt = `Meal Planner screenshot ${imgIndex + 1}`;
+          img.style.cssText = `transform:translateX(${tx}%) scale(${scale});opacity:${opacity};z-index:${z};width:${w};max-height:90%;`;
+          if (posIndex !== 2) img.addEventListener('click', () => setFanCenter(imgIndex));
+          container.appendChild(img);
+        });
+      } else {
+        // Animate — update existing elements
+        Array.from(container.children).forEach((img, posIndex) => {
+          const [tx, scale, opacity, z, w] = fanPositions[posIndex];
+          img.src = mealImgs[order[posIndex]];
+          img.style.transform = `translateX(${tx}%) scale(${scale})`;
+          img.style.opacity   = opacity;
+          img.style.zIndex    = z;
+          img.style.width     = w;
+          img.onclick = posIndex !== 2 ? () => setFanCenter(order[posIndex]) : null;
+        });
+      }
+
       document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === centerIndex));
     }
 
     function setFanCenter(index) {
       mealCurrent = index;
-      buildFan(mealCurrent);
+      buildFan(mealCurrent, true);
     }
 
     document.getElementById('mealGallery').addEventListener('click', () => openCarousel(0));
 
     function openCarousel(index) {
       mealCurrent = index;
-      buildFan(mealCurrent);
+      buildFan(mealCurrent, false);
       document.getElementById('carouselModal').style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
